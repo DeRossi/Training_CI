@@ -24,7 +24,7 @@ class Students extends CI_Controller {
 		$str = "<h2><table class='table table-hover'><th>ID</th> <th>Student Name</th> <th>Student DOB</th> <th>Student Sex</th> <th>Student Address</th>";
 		echo($str);
 		foreach ($query->result() as $row) {
-			echo "<tr><td>" .$row->id. "</td><td>" .$row->student_name. "</td><td>" .$row->student_birth. "</td><td>" .$row->student_sex. ".</td><td>" .$row->student_address. ".</td></tr>";
+			echo "<tr><td>" .$row->id. "</td><td>" .$row->student_name. "</td><td>" .$row->student_birth. "</td><td>" .$row->student_sex. "</td><td>" .$row->student_address. "</td></tr>";
 		}
 		echo("</table></h2>");
 	}
