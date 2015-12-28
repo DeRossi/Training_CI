@@ -44,10 +44,11 @@
 // Please see https://bitbucket.org/phpliteadmin/public/wiki/Configuration for more details
 
 //password to gain access
-$password = 'admin';
+$password = 'happy';
 
 //directory relative to this file to search for databases (if false, manually list databases in the $databases variable)
-$directory = 'applications/models/db/';
+//$directory = 'application/models/db/';
+$directory = 'application/models/db';
 
 //whether or not to scan the subdirectories of the above directory infinitely deep
 $subdirectories = false;
