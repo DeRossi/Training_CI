@@ -10,10 +10,7 @@ class Students_model extends CI_Model {
 		}
 		else
 			return false;
-		//return $this->db->get($this->_tables);
 		//return bool
-
-		//return $this->db->insert($this->_tables, $data);
 	}
 
 	public function update($id, $data){
