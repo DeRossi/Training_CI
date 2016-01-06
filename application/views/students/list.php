@@ -1,4 +1,4 @@
-	<h1>Show list</h1>
+	<h2><b>Show list</b></h2>
 	<?
 	$query = $this->db->get('students');
 	$str = "<h2><table class='table table-hover'><th>ID</th> <th>Student Name</th> <th>Student DOB</th> <th>Student Sex</th> <th>Student Address</th> <th>Operation</th>";

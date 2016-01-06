@@ -19,6 +19,9 @@ class Students_model extends CI_Model {
 
 	public function update($id, $data){
 		//$data["id"]
+		if($data){
+			echo "testssdsds";
+		}
 		$this->db->where('id', $id);
 		$this->db->update($this->_table, $data);
 	}

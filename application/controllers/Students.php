@@ -1,11 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?>
-<!-- Latest compiled and minified CSS & JS -->
-<link rel="stylesheet" media="screen" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<script src="//code.jquery.com/jquery.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<?
+
 class Students extends CI_Controller {
 	public $_data;
 
@@ -30,7 +25,7 @@ class Students extends CI_Controller {
 
 		$this->_data['info'] = $this->students_model->getList();
 		
-		$this->load->view('students/main.php', $this->_data, FALSE);
+		$this->load->view('students/main.php', $this->_data);
 
 		//$this->showlist();
 		//$this->create();
@@ -81,14 +76,14 @@ class Students extends CI_Controller {
 			);
 			$this->students_model->insert($data_insert);
 			$this->session->set_flashdata('flash_mess', 'Added');
-			redirect(base_url()."index.php/students");
+			redirect(base_url()."students");
 		}
-		$this->load->view('students/main.php', $this->_data, FALSE);
+		$this->load->view('students/main', $this->_data);
 	}
 
-	public function edit($id){
-		$this->load->library('form_validation');
-		$this->load->model('students_model');
+	public function edit($id = null){
+		//$this->load->library('form_validation');
+		//$this->load->model('students_model');
 
 		$this->_data['titlePage'] = "Edit Student";
 		$this->_data['subview'] = "students/edit_student";
@@ -103,10 +98,10 @@ class Students extends CI_Controller {
 				"student_address" => $this->input->post("student_address"),
 			);
 			$this->students_model->update($id, $data_update);
-			$this->session->set_flashdata('flash_mess', 'Update success');
-			redirect(base_url(). "index.php/students");
+			//$this->session->set_flashdata('flash_mess', 'Update success');
+			redirect(base_url(). "students");
 		}
-		$this->load->view('students/main', $this->_data, FALSE);
+		$this->load->view('students/main', $this->_data);
 	}
 
 	public function delete($id){
@@ -114,22 +109,19 @@ class Students extends CI_Controller {
 		$this->students_model->delete($id);
 
 		$this->session->set_flashdata('flash_mess', 'Deleted');
-		redirect(base_url(). "index.php/students");
+		redirect(base_url(). "students");
 	}
 
 	public function search(){
 		$this->load->model('students_model');
 
-		/*$data = array(
-			"student_name" => $this->input->get("student_name"),
-		);*/
 		$keyword = $this->input->post('student_name');
 
 		$this->_data['titlePage'] = "Search Student";
 		$this->_data['subview']   = "students/search_student";
-
 		$this->_data['results'] = $this->students_model->search_std($keyword);
-		$this->load->view('students/main', $this->_data, FALSE);
+
+		$this->load->view('students/main', $this->_data);
 	}
 }
 

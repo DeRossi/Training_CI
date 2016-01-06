@@ -1,21 +1,17 @@
-<form action="<?php echo base_url();?>index.php/students/search" method="post" id="categories">
+<form action="<?php echo base_url();?>students/search" method="post" id="categories">
 
-<input type="text" class="searchBox" id="searchBox" name="student_name" />
-<input type="submit" value="Search" class="btnInput" id="btnInput"> </input>
+<input type="text" class="searchBox form-control" id="searchBox" name="student_name" placeholder="enter name of student you want" />
+<input type="submit" value="Search by student name" class="btnInput" id="btnInput"> </input>
 <br><br>
 <?php
 echo '<hr>';
-echo '<h1> Students List </h1>';
+echo '<h2><b> Students List </b></h2>';
 echo '<table id="" class="table">';
 echo '<th> ID</th>';
 echo '<th> Students name </th>';
 echo '<th> Students DOB </th>';
 echo '<th> Student sex </th>';
 echo '<th> Students address </th>';
-
-//$result = $this->db->like('student_name', $this->input->get("student_name"))->get('students');
-//->or_like('student_address', $data)
-//->get('students');
 
 foreach($results as $rows) {
 	echo '<tr>
@@ -28,5 +24,4 @@ foreach($results as $rows) {
 }
 echo '</table>';
 ?>
-
 </form>
