@@ -1,5 +1,5 @@
-<form action="<?php echo base_url(); ?>index.php/students/search_student/<?php echo $search['student_name']; ?>" method="post" id="categories">
-<form action="<?php echo base_url(); ?>index.php/students/edit/<?php echo $info['id']; ?>" method="post" id="categories">
+<form action="<?php echo base_url();?>index.php/students/search" method="post" id="categories">
+
 <input type="text" class="searchBox" id="searchBox" name="student_name" />
 <input type="submit" value="Search" class="btnInput" id="btnInput"> </input>
 <br><br>
@@ -13,11 +13,11 @@ echo '<th> Students DOB </th>';
 echo '<th> Student sex </th>';
 echo '<th> Students address </th>';
 
-$result = $this->db->like('student_name', $this->input->post("student_name"))
+//$result = $this->db->like('student_name', $this->input->get("student_name"))->get('students');
 //->or_like('student_address', $data)
-->get('students');
+//->get('students');
 
-foreach($result->result() as $rows) {
+foreach($results as $rows) {
 	echo '<tr>
 	<td>'.$rows->id.'</td>
 	<td>'.$rows->student_name.'</td>

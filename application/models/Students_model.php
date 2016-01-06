@@ -51,14 +51,14 @@ class Students_model extends CI_Model {
 		$this->db->delete($this->_table);
 	}
 
-	public function search_std($data){
-		if(empty($data)){
-			return array();
+	public function search_std($keyword){
+		if(empty($keyword)){
+			$result = $this->db->get('students');
+			return $result->result();
 		}
 
-		$result = $this->db->like('student_name', $data)
-		->or_like('student_address', $data)
-		->get('students');
+		$result = $this->db->like('student_name', $keyword)->get('students');
+
 		return $result->result();
 	}
 }

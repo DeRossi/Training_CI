@@ -117,17 +117,18 @@ class Students extends CI_Controller {
 		redirect(base_url(). "index.php/students");
 	}
 
-	public function search($data){
+	public function search(){
 		$this->load->model('students_model');
-		//$this->students_model->search($data);
-		$data = array(
-			"student_name" => $this->input->post("student_name"),
-		);
+
+		/*$data = array(
+			"student_name" => $this->input->get("student_name"),
+		);*/
+		$keyword = $this->input->post('student_name');
 
 		$this->_data['titlePage'] = "Search Student";
 		$this->_data['subview']   = "students/search_student";
 
-		$this->_data['search'] = $this->students_model->search_std($data['student_name']);
+		$this->_data['results'] = $this->students_model->search_std($keyword);
 		$this->load->view('students/main', $this->_data, FALSE);
 	}
 }
