@@ -11,59 +11,44 @@ class Students extends CI_Controller {
 
 		$this->load->helper('url');
 		$this->load->library('form_validation');
+		$this->load->library('pagination');
 	}
 
 	public function index()
 	{
-		//$this->load->helper('url');
 		$this->_data['base_url'] = base_url();
 
 
-		$this->_data['subview'] = 'students/list';
+		$this->_data['subview']   = 'students/list';
 		$this->_data['titlePage'] = 'List All Students';
+
 		$this->load->model('students_model');
 
-		$this->_data['info'] = $this->students_model->getList();
-		
-		$this->load->view('students/main.php', $this->_data);
+		// Pagination settings
+		$this->_data['base_url']    = base_url()."students";
+		$this->_data['total_rows']  = $this->students_model->countAll();
+		$this->_data['per_page']    = "20";
+		$this->_data['uri_segment'] = 3;
+		$choice = $this->_data['total_rows'] / $this->_data['per_page'];
 
-		//$this->showlist();
-		//$this->create();
-	}
+		$this->_data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$this->_data['pagination'] = $this->pagination->create_links();
+		$this->pagination->initialize($this->_data);
 
-/*	public function showlist(){
-		echo "<h1>Show list</h1>";
-		$query = $this->db->get('students');
-		$str = "<h2><table class='table table-hover'><th>ID</th> <th>Student Name</th> <th>Student DOB</th> <th>Student Sex</th> <th>Student Address</th>";
-		echo($str);
-		foreach ($query->result() as $row) {
-			echo "<tr><td>" .$row->id. "</td><td>" .$row->student_name. "</td><td>" .$row->student_birth. "</td><td>" .$row->student_sex. "</td><td>" .$row->student_address. "</td></tr>";
-		}
-		echo("</table></h2>");
-	}*/
+		$this->load->library('pagination', $this->_data);
 
-	public function create(){
-		$data =[
-			//"id" => '',
-			"student_name"    => "test",
-			"student_birth"   => "test",
-			"student_sex"     => "test",
-			"student_address" => "test",
-		];
+		$start=$this->uri->segment(3);
+		//$this->_data['info'] = $this->students_model->getList();
+		$this->_data['info'] = $this->students_model->getList($this->_data['per_page'], $start);
 
-		echo "<h1>Create SV</h1>";
-		if($query = $this->db->insert("students", $data)){
-			echo "<h1 style='color:red;'>Record added</h1>";
-		}else{
-			echo "<h1>Failed</h1>";
-		}
+		$this->load->view('students/main', $this->_data);
+		//echo '<h2>' .$this->pagination->create_links(). '</h2>';
 
-		$this->show();
 	}
 
 	public function add(){
 		$this->_data['titlePage'] = 'Add Student';
-		$this->_data['subview'] = 'students/add_student';
+		$this->_data['subview']   = 'students/add_student';
 
 		$this->form_validation->set_rules("student_name", "student_name", "required|min_length[6]");
 		$this->form_validation->set_rules("student_address", "student_address", "required|min_length[6]");
@@ -82,11 +67,9 @@ class Students extends CI_Controller {
 	}
 
 	public function edit($id = null){
-		//$this->load->library('form_validation');
-		//$this->load->model('students_model');
 
 		$this->_data['titlePage'] = "Edit Student";
-		$this->_data['subview'] = "students/edit_student";
+		$this->_data['subview']   = "students/edit_student";
 
 		$this->_data['info'] = $this->students_model->getUserById($id);
 		$this->form_validation->set_rules("student_name", "student_name", "required|min_length[6]");
@@ -98,7 +81,7 @@ class Students extends CI_Controller {
 				"student_address" => $this->input->post("student_address"),
 			);
 			$this->students_model->update($id, $data_update);
-			//$this->session->set_flashdata('flash_mess', 'Update success');
+			$this->session->set_flashdata('flash_mess', 'Update success');
 			redirect(base_url(). "students");
 		}
 		$this->load->view('students/main', $this->_data);

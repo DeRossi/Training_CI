@@ -35,9 +35,15 @@ class Students_model extends CI_Model {
 		//return object
 	}
 
-	public function getList(){
+	/*public function getList(){
 		$this->db->select('id, student_name, student_birth, student_sex, student_address');
 		return $this->db->get($this->_table)->result_array();
+	}*/
+
+	public function getList($total, $start){
+		$this->db->limit($total, $start);
+		$query = $this->db->get('students');
+		return $query->result_array();
 	}
 
 	public function countAll(){
