@@ -38,12 +38,12 @@ $(function() {
     var barData = {
         label: "bar",
         data: [
-            [1, $test],
+            [1, $hp],
             [2, 25],
             [3, 19],
             [4, 34],
             [5, 32],
-            [6, 44]
+            [6, $test]
         ]
     };
     $.plot($("#flot-bar-chart"), [barData], barOptions);

@@ -100,4 +100,5 @@
 	<script src="<?php echo base_url(); ?>common/js/plugins/pace/pace.min.js"></script>
 
 	<!-- Flot demo data -->
+	<script type="text/javascript">$hp = 200;</script>
 	<script src="<?php echo base_url(); ?>common/js/demo/flot-demo.js"></script>
