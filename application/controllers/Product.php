@@ -8,6 +8,7 @@ class Product extends CI_Controller {
 		parent::__construct();
 		$this->_data['base_url'] = base_url();
 		$this->load->model('students_model');
+		$this->load->model('product_model');
 
 		$this->load->helper('url');
 		$this->load->library('form_validation');
@@ -22,7 +23,7 @@ class Product extends CI_Controller {
 		$this->_data['subview']   = 'product/list_product';
 		$this->_data['titlePage'] = 'List All Product';
 
-		$this->load->model('students_model');
+		$this->load->model('product_model');
 
 		// Pagination settings
 		$this->_data['base_url']    = base_url()."product";
@@ -53,7 +54,7 @@ class Product extends CI_Controller {
 		$this->form_validation->set_rules("student_name", "student_name", "required|min_length[6]");
 		$this->form_validation->set_rules("student_address", "student_address", "required|min_length[6]");
 		if($this->form_validation->run() == true){
-			$this->load->model('students_model');
+			$this->load->model('product_model');
 			$data_insert = array(
 				"student_name"    => $this->input->post("student_name"),
 				"student_sex"     => $this->input->post("student_sex"),
@@ -63,7 +64,7 @@ class Product extends CI_Controller {
 			$this->session->set_flashdata('flash_mess', 'Added');
 			redirect(base_url()."students");
 		}
-		$this->load->view('students/main', $this->_data);
+		$this->load->view('product/main', $this->_data);
 	}
 
 	public function edit($id = null){
@@ -71,10 +72,10 @@ class Product extends CI_Controller {
 		$this->_data['titlePage'] = "Edit Product";
 		$this->_data['subview']   = "product/edit_product";
 
-		$this->_data['info'] = $this->students_model->getUserById($id);
-		$this->form_validation->set_rules("student_name", "student_name", "required|min_length[6]");
-		$this->form_validation->set_rules("student_address", "student_address", "required|min_length[6]");
-		if($this->form_validation->run() == true){
+		$this->_data['info'] = $this->product_model->getProById($id);
+		//$this->form_validation->set_rules("student_name", "student_name", "required|min_length[6]");
+		//$this->form_validation->set_rules("student_address", "student_address", "required|min_length[6]");
+		/*if($this->form_validation->run() == true){
 			$data_update = array(
 				"student_name"    => $this->input->post("student_name"),
 				"student_sex"     => $this->input->post("student_sex"),
@@ -83,8 +84,8 @@ class Product extends CI_Controller {
 			$this->students_model->update($id, $data_update);
 			$this->session->set_flashdata('flash_mess', 'Update success');
 			redirect(base_url(). "students");
-		}
-		$this->load->view('students/main', $this->_data);
+		}*/
+		$this->load->view('product/main', $this->_data);
 	}
 
 	public function delete($id){
@@ -96,7 +97,7 @@ class Product extends CI_Controller {
 	}
 
 	public function search(){
-		$this->load->model('students_model');
+		$this->load->model('product_model');
 
 		$keyword = $this->input->post('student_name');
 
@@ -104,7 +105,17 @@ class Product extends CI_Controller {
 		$this->_data['subview']   = "students/search_student";
 		$this->_data['results'] = $this->students_model->search_std($keyword);
 
-		$this->load->view('students/main', $this->_data);
+		$this->load->view('product/main', $this->_data);
+	}
+
+	public function details($id = null){
+		$this->load->model('product_model');
+
+		$data['titlePage'] = "Product details";
+		$data['subview'] = "product/product_details";
+
+		$data['info'] = $this->product_model->getProById($id);
+		$this->load->view('product/main', $data);
 	}
 }
 

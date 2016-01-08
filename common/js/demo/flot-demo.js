@@ -34,10 +34,11 @@ $(function() {
             content: "x: %x, y: %y"
         }
     };
+    $test = 100;
     var barData = {
         label: "bar",
         data: [
-            [1, 34],
+            [1, $test],
             [2, 25],
             [3, 19],
             [4, 34],
