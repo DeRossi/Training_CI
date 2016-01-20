@@ -9,29 +9,29 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>common/css/animate.css" charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>common/css/style.css" charset="utf-8" />
 
-	<script src="<? echo base_url(); ?>common/js/jquery-2.1.1.js"></script>
-	<script src="<? echo base_url(); ?>common/js/bootstrap.min.js"></script>
-	<script src="<? echo base_url(); ?>common/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-	<script src="<? echo base_url(); ?>common/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="<? echo base_url(); ?>common/js/plugins/flot/jquery.flot.js"></script>
-	<script src="<? echo base_url(); ?>common/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-	<script src="<? echo base_url(); ?>common/js/plugins/flot/jquery.flot.spline.js"></script>
-	<script src="<? echo base_url(); ?>common/js/plugins/flot/jquery.flot.resize.js"></script>
-	<script src="<? echo base_url(); ?>common/js/plugins/flot/jquery.flot.pie.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/jquery-2.1.1.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/bootstrap.min.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/plugins/flot/jquery.flot.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/plugins/flot/jquery.flot.spline.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/plugins/flot/jquery.flot.resize.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/plugins/flot/jquery.flot.pie.js"></script>
 
-	<script src="<? echo base_url(); ?>common/js/plugins/peity/jquery.peity.min.js"></script>
-	<script src="<? echo base_url(); ?>common/js/demo/peity-demo.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/plugins/peity/jquery.peity.min.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/demo/peity-demo.js"></script>
 	<!--
-	<script src="<? echo base_url(); ?>common/js/inspinia.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/inspinia.js"></script>
 	 -->
-	<script src="<? echo base_url(); ?>common/js/plugins/pace/pace.min.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/plugins/pace/pace.min.js"></script>
 
-	<script src="<? echo base_url(); ?>common/js/plugins/jquery-ui/jquery-ui.min.js"></script>
-	<script src="<? echo base_url(); ?>common/js/plugins/gritter/jquery.gritter.min.js"></script>
-	<script src="<? echo base_url(); ?>common/js/plugins/sparkline/jquery.sparkline.min.js"></script>
-	<script src="<? echo base_url(); ?>common/js/demo/sparkline-demo.js"></script>
-	<script src="<? echo base_url(); ?>common/js/plugins/chartJs/Chart.min.js"></script>
-	<script src="<? echo base_url(); ?>common/js/plugins/toastr/toastr.min.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/plugins/gritter/jquery.gritter.min.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/demo/sparkline-demo.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/plugins/chartJs/Chart.min.js"></script>
+	<script src="<?php echo base_url(); ?>common/js/plugins/toastr/toastr.min.js"></script>
 
 	<script language="javascript">
 setTimeout(function(){
@@ -200,7 +200,7 @@ setTimeout(function(){
 				<ul class="nav metismenu" id="side-menu">
 					<li class="nav-header">
 						<div class="dropdown profile-element"> <span>
-							<img alt="image" class="img-circle" src="<? echo base_url(); ?>common/img/663953.rsz.jpg" height="55" width="55" />
+							<img alt="image" class="img-circle" src="<?php echo base_url(); ?>common/img/663953.rsz.jpg" height="55" width="55" />
 						</span>
 						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 							<span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Nguyen Hanh Phuc</strong>
@@ -395,7 +395,7 @@ setTimeout(function(){
 								<li>
 									<div class="dropdown-messages-box">
 										<a href="profile.html" class="pull-left">
-											<img alt="image" class="img-circle" src="<? echo base_url(); ?>common/img/a7.jpg">
+											<img alt="image" class="img-circle" src="<?php echo base_url(); ?>common/img/a7.jpg">
 										</a>
 										<div class="media-body">
 											<small class="pull-right">46h ago</small>
@@ -408,7 +408,7 @@ setTimeout(function(){
 								<li>
 									<div class="dropdown-messages-box">
 										<a href="profile.html" class="pull-left">
-											<img alt="image" class="img-circle" src="<? echo base_url(); ?>common/img/a4.jpg">
+											<img alt="image" class="img-circle" src="<?php echo base_url(); ?>common/img/a4.jpg">
 										</a>
 										<div class="media-body ">
 											<small class="pull-right text-navy">5h ago</small>
@@ -421,7 +421,7 @@ setTimeout(function(){
 								<li>
 									<div class="dropdown-messages-box">
 										<a href="profile.html" class="pull-left">
-											<img alt="image" class="img-circle" src="<? echo base_url(); ?>common/img/profile.jpg">
+											<img alt="image" class="img-circle" src="<?php echo base_url(); ?>common/img/profile.jpg">
 										</a>
 										<div class="media-body ">
 											<small class="pull-right">23h ago</small>
@@ -498,7 +498,11 @@ setTimeout(function(){
 
 
 			<div class="row">
-				<? $this->load->view($subview); ?>
+				<?php
+
+					//echo $this->pagination->create_links();
+				?>
+				<?php $this->load->view($subview); ?>
 			</div>
 
 		</div>

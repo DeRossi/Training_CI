@@ -1,12 +1,64 @@
+<style type="text/css">
+	.paging {
+		text-align: center;
+		margin: 0px 0px 10px 0px;
+		font: 12px 'Tahoma';
+		margin-top: 30px;
+		padding-bottom: 50px;
+		border-bottom: 1px solid #e2e2e2;
+	}
+	.paging a:hover{
+		color: white;
+		font: 12px 'Tahoma';
+		text-shadow:0px 1px #388DBE;
+		border-color:#3390CA;
+		background:#58B0E7;
+		background:-moz-linear-gradient(top, #B4F6FF 1px, #63D0FE 1px, #58B0E7);
+		background:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0.02, #B4F6FF), color-stop(0.02, #63D0FE), color-stop(1, #58B0E7));
+		border-radius: 3px 3px 3px 3px;
+		padding: 5px 10px;
+	}
+	.paging a {
+		font: 12px 'Tahoma';
+		color: #0A7EC5;
+		border: solid 1px;
+		border-color: #8DC5E6;
+		background: #F8FCFF;
+		border-radius: 3px 3px 3px 3px;
+		padding: 5px 10px;
+		margin: 0px 5px;
+	}
+	.paging strong {
+		color: white;
+		font: 12px 'Tahoma';
+		text-shadow:0px 1px #388DBE;
+		border-color:#3390CA;
+		background:#58B0E7;
+		background:-moz-linear-gradient(top, #B4F6FF 1px, #63D0FE 1px, #58B0E7);
+		background:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0.02, #B4F6FF), color-stop(0.02, #63D0FE), color-stop(1, #58B0E7));
+		border-radius: 3px 3px 3px 3px;
+		padding: 6px 12px;
+	}
+</style>
+
 <?php
 	$query = $this->db->get('product');
+
+	/*$count = count($data);
+	for ($i=0; $i < $count; $i++) {
+		$casting_array[] = (object) $data[$i];
+	}*/
+
+	/*echo "<pre>";
+	print_r($casting_array);
+	echo "</pre>";*/
 ?>
 <div class="row wrapper border-bottom white-bg page-heading">
 	<div class="col-lg-10">
 		<h2>Danh mục sản phẩm</h2>
 		<ol class="breadcrumb">
 			<li>
-				<a href="#">Trang chủ</a>
+				<a href="<?php echo base_url()."" ?>">Trang chủ</a>
 			</li>
 			<li class="active">
 				<strong>Sản phẩm</strong>
@@ -14,6 +66,25 @@
 		</ol>
 	</div>
 </div>
+
+<section id="cart">
+	<div id="heading">
+		<h3 style="text-align: center;">Giỏ hàng của bạn</h3>
+	</div>
+	<div id="text" style="text-align: center;">
+		<?php
+		$cart_check = $this->cart->contents();
+		if(empty($cart_check)) {
+			echo 'Giỏ hàng của bạn chưa có sản phẩm nào !';
+		}
+		?>
+
+		<table id="table" border="0" cellpadding="10px" cellspacing="1px">
+
+		</table>
+	</div>
+
+</section>
 
 <div role="tabpanel">
 	<!-- Nav tabs -->
@@ -31,19 +102,20 @@
 		<!-- ////////////////////////////////////////////// -->
 		<div class="row">
 			<?php
-			foreach ($query->result() as $row) {
+			foreach ($post->result() as $row) { // $query->result()
 				?>
 				<div class="col-md-3">
 					<div class="ibox">
 						<div class="ibox-content product-box">
 							<div class="product-imitation" style="padding: 22px 0;">
+							<a href="<?php ?>" class="btn btn-xs btn-outline btn-primary"><h4>Thêm vào giỏ hàng</h4></a>
 								<a href="<?php echo base_url()."product/details/".$row->pro_id; ?>">
 									<img src="<?php echo base_url()."common/img/upload/".$row->pro_img; ?>" width="240px" height="180px">
 								</a>
 							</div>
 							<div class="product-desc">
 								<span class="product-price">
-									<?php echo $row->pro_price; ?>
+									<?php echo $row->pro_price; ?> VND
 								</span>
 								<small class="text-muted">Category</small>
 								<a href="<?php echo base_url()."product/details/".$row->pro_id; ?>" class="product-name"> <?php echo $row->pro_name; ?> </a>
@@ -61,6 +133,8 @@
 				</div>
 				<?php } ?>
 			</div>
+				<div class="paging"><?php echo '<h4>Page : ' .$paginator. '</h4>'; ?></div>
+
 		<!-- ////////////////////////////////////////////// -->
 		</div>
 
@@ -81,7 +155,7 @@
 				<td>" .$row->pro_price. "</td>
 				<td>" .$row->pro_desc. "</td>
 				<td> <img src=" .base_url()."common/img/upload/".$row->pro_img." width='125px' height='80px'> </td>
-				<td><a href=".base_url()."product/edit/".$row->pro_id.">Edit</a> | <a href=".base_url()."product/delete/".$row->pro_id."  onclick='return xacnhan();'>Delete</a></td></tr>";
+				<td><a href=".base_url()."product/edit/".$row->pro_id.">Edit</a> | <a href=".base_url()."product/delete/".$row->pro_id."  onclick='return xacnhan();'>Delete</a></td></tr></table>";
 			}
 		?>
 		<!-- ////////////////////////////////////////////// -->

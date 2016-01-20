@@ -1,3 +1,16 @@
+<?php 
+	echo "<pre>";
+	print_r($info, $bd);
+	echo "</pre>";
+
+	echo "<pre>";
+	print_r($bd);
+	echo "</pre>";
+
+	echo "<pre>";
+	print_r($info);
+	echo "</pre>";
+?>
 <div class="row wrapper border-bottom white-bg page-heading">
 	<div class="col-lg-10">
 		<h2>Chi tiết sản phẩm</h2>
@@ -24,7 +37,7 @@
 		<div class="col-lg-12">
 
 			<div class="ibox product-detail">
-				<div class="ibox-content">
+				<div clasEys="ibox-content">
 
 					<div class="row">
 						<div class="col-md-5">
@@ -46,6 +59,8 @@
 								<h2 class="product-main-price">$ <?php echo $info['pro_price'] ?> <small class="text-muted">Exclude Tax</small> </h2>
 							</div>
 							<hr>
+
+							<img width="300px" height="100px" src="<?php echo base_url()."product/details/".$info['pro_id']."/set_barcode/".$bd ?>"/>
 
 							<h4>Product description</h4>
 
