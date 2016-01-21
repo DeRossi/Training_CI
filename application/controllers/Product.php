@@ -56,6 +56,7 @@ class Product extends CI_Controller {
 	}
 
 	public function remove($rowid){
+
 		if($rowid === "all"){
 			$this->cart->destroy();
 		}else{
@@ -89,7 +90,7 @@ class Product extends CI_Controller {
 	}
 
 	public function billing_view(){
-
+		echo "test";
 	}
 
 	public function save_order(){
