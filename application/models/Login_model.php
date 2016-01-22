@@ -15,9 +15,4 @@ class Login_model extends CI_Model {
 		return $query->num_rows();
 	}
 
-	public function get_user_byID($user_id){
-		$sql = "select * from user where user_id = '" . $user_id. "' and user_stt = 'active'";
-		$query = $this->db->query($sql);
-		return $query;
-	}
 }

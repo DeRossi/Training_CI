@@ -39,10 +39,22 @@
 		<!-- <input type="text" name="student_address" class="input form-control" value="<?php echo $info['pro_desc']; ?>" /> -->
 		<textarea name="pro_desc" id="input" class="form-control" rows="3" required="required"><?php echo $info['pro_desc']; ?></textarea>
 
+		<?php
+			$upload=array(
+				"name" => "img",
+				"size" => "25",
+			);
 
-	<label>&nbsp;</label><input type="submit" name="ok" value="Sửa thông tin" class="btn" />
+			echo form_open_multipart(base_url()."upload/doupload");
+			echo form_label("Hình ảnh : ").form_upload($upload)."<br />";
+			echo form_label(" ").form_submit("ok", "Upload");
+			echo form_close();
+		?>
+
+		<label>&nbsp;</label><input type="submit" name="ok" value="Sửa thông tin" class="btn" />
 </fieldset>
 
 </form>
+
 
 <?php } ?>

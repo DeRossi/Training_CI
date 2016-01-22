@@ -10,31 +10,32 @@ class Product extends CI_Controller {
 			redirect('login');
 		}
 		$this->_data['base_url'] = base_url();
+		// load model
 		$this->load->model('product_model');
 
-		$this->load->helper('url');
-		$this->load->library('cart');
-		$this->load->library('form_validation');
+		$this->load->helper('form', 'url');
+		$this->load->library(array('session', 'cart', 'upload', 'form_validation'));
 		//$this->load->library('zend');
 		//$this->load->library('pagination');
 
 	}
 
 	public function index(){
-		$this->db->select('*');
-		$this->db->from('product');
-		$offset = $this->uri->segment(2);
-		$limit = 4;
+		$this->db->select('*')->from('product');
+		//$this->db->from('product');
+		$offset	= $this->uri->segment(2);
+		$limit	= 4;
 		$this->db->limit($limit, $offset);
+
 		$querypost = $this->db->get();
 		// Pagination settings
-		$config['total_rows']  = $this->product_model->countAll();
-		$config['base_url']    = base_url().'/product/';
-		$config['per_page']    = $limit;
-		$config['uri_segment'] = 2;
-		$config['num_links']   = 2;
-		$config['next_link']   = " Next Page >> ";
-		$config['prev_link']   = " << Previous Page ";
+		$config['total_rows']	= $this->product_model->countAll();
+		$config['base_url']		= base_url().'/product/';
+		$config['per_page']		= $limit;
+		$config['uri_segment']	= 2;
+		$config['num_links']	= 2;
+		$config['next_link']	= " Next Page >> ";
+		$config['prev_link']	= " << Previous Page ";
 		//$config['use_page_numbers'] = true;
 
 		$this->pagination->initialize($config);
@@ -51,10 +52,10 @@ class Product extends CI_Controller {
 
 	public function addCart(){
 		$insert_cartdata = array(
-			'pro_id'    => $this->input->post('pro_id'),
-			'name'      => $this->input->post('name'),
-			'pro_price' => $this->input->post('pro_price'),
-			'qty'       => 1
+			'pro_id'	=> $this->input->post('pro_id'),
+			'name'		=> $this->input->post('name'),
+			'pro_price'	=> $this->input->post('pro_price'),
+			'qty'		=> 1
 		);
 		$this->cart->insert($insert_cartdata);
 		redirect(base_url()."product");
@@ -105,21 +106,22 @@ class Product extends CI_Controller {
 	public function add(){
 		$this->form_validation->set_rules("pro_name", "pro_name", "required|min_length[6]");
 		$this->form_validation->set_rules("pro_desc", "pro_desc", "required|min_length[6]");
+
 		if($this->form_validation->run() == true){
-			$this->load->model('product_model');
 			$data_insert = array(
-				"student_name"    => $this->input->post("student_name"),
-				"student_sex"     => $this->input->post("student_sex"),
-				"student_address" => $this->input->post("student_address"),
+				"pro_name"	=> $this->input->post("pro_name"),
+				"pro_price"	=> $this->input->post("pro_price"),
+				"pro_desc"	=> $this->input->post("pro_desc"),
 			);
-			$this->students_model->insert($data_insert);
+			$this->product_model->insert($data_insert);
+
 			$this->session->set_flashdata('flash_mess', 'Added');
 			redirect(base_url()."product");
 		}
 
 		$nData = array(
 			'subview'   => 'product/add_product',
-			'titlePage' => 'Add Product'
+			'titlePage' => 'Thêm mặt hàng'
 		);
 		$this->load->view('product/main', $nData);
 	}
@@ -132,6 +134,7 @@ class Product extends CI_Controller {
 				"pro_name"	=> $this->input->post("pro_name"),
 				"pro_price"	=> $this->input->post("pro_price"),
 				"pro_desc"	=> $this->input->post("pro_desc"),
+				//"pro_img" =>
 			);
 			$this->product_model->update($id, $data_update);
 			$this->session->set_flashdata('flash_mess', 'Update success');
@@ -139,7 +142,7 @@ class Product extends CI_Controller {
 		}
 
 		$nData = array(
-			'titlePage' => 'Edit Product',
+			'titlePage' => 'Sửa thông tin mặt hàng',
 			'subview'   => 'product/edit_product',
 			'info'      => $this->product_model->getProById($id)
 		);
