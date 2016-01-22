@@ -1,80 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Login Form</title>
-     <!--link the bootstrap css file-->
-     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login Form</title>
+	<!-- Latest compiled and minified CSS & JS -->
+	<link rel="stylesheet" media="screen" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<script src="//code.jquery.com/jquery.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-     <style type="text/css">
-     .colbox {
-          margin-left: 0px;
-          margin-right: 0px;
-     }
-     </style>
+	<style type="text/css">
+	.colbox {
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+	</style>
+
+	<script>
+	$(function(){
+		center() //gọi hàm mới load web
+		$(window).resize(function(){center()})//gọi hàm khi resize
+		function center(){ //hàm xử lý
+			$('test').css({left:($(window).width()-$('test').width())/2,top:($(window).height()-$('test').height())/2})
+		}
+	})
+	</script>
 </head>
-<body>
-     <div class="container">
-          <div class="row">
-               <div class="col-lg-6 col-sm-6">
-                    <h1>Login</h1>
-               </div>
-               <div class="col-lg-6 col-sm-6">
+<body style="background-image: url(http://itop.freewallpaper-s.net/wp-content/uploads/wallpapers/Home-office-macbookair-apple-brand-notebook-computer-top-uhd-4k-wallpapers-2560x1440.jpg); background-size: cover;">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-sm-6" style="color: white">
+				<h2>Hệ thống quản lý hàng</h2>
+			</div>
+			<div class="col-lg-6 col-sm-6">
+				<ul class="nav nav-pills pull-right" style="margin-top:20px">
+					<li class="active"><a href="#">Đăng nhập</a></li>
+					<li><a href="#">Signup</a></li>
+				</ul>
 
-                    <ul class="nav nav-pills pull-right" style="margin-top:20px">
-                         <li class="active"><a href="#">Login</a></li>
-                         <li><a href="#">Signup</a></li>
-                    </ul>
-
-               </div>
-          </div>
-     </div>
+			</div>
+		</div>
+	</div>
 <hr/>
 
 <div class="container">
-     <div class="row">
-          <div class="col-lg-4 col-sm-4 well">
-               <?php
-               $attributes = array("class" => "form-horizontal", "id" => "loginform", "name" => "loginform");
-               echo form_open("login/index", $attributes);?>
-               <fieldset>
-                    <legend>Login</legend>
-                    <div class="form-group">
-                         <div class="row colbox">
-                              <div class="col-lg-4 col-sm-4">
-                                   <label for="txt_username" class="control-label">Username</label>
-                              </div>
-                              <div class="col-lg-8 col-sm-8">
-                                   <input class="form-control" id="txt_username" name="txt_username" placeholder="Username" type="text" value="<?php echo set_value('txt_username'); ?>" />
-                                   <span class="text-danger"><?php echo form_error('txt_username'); ?></span>
-                              </div>
-                         </div>
-                    </div>
+	<div class="row">
+		<div class="col-lg-4 col-sm-4 well" style="background-color: transparent; border-width: medium; color: white">
+			<?php
+			$attributes = array(
+				"class"	=> "form-horizontal",
+				"id"	=> "loginform",
+				"name"	=> "loginform"
+			);
+			echo form_open("login", $attributes);
+			?>
+			<fieldset>
+				<legend style="color: white">Đăng nhập</legend>
+				<div class="form-group">
+					<div class="row colbox">
+						<div class="col-lg-4 col-sm-4">
+							<label for="txt_username" class="control-label">Username</label>
+						</div>
+						<div class="col-lg-8 col-sm-8">
+							<input class="form-control" id="txt_username" name="txt_username" placeholder="Username" type="text" value="<?php echo set_value('txt_username'); ?>" />
+							<span class="text-danger"><?php echo form_error('txt_username'); ?></span>
+						</div>
+					</div>
+				</div>
 
-                    <div class="form-group">
-                         <div class="row colbox">
-                              <div class="col-lg-4 col-sm-4">
-                                   <label for="txt_password" class="control-label">Password</label>
-                              </div>
-                              <div class="col-lg-8 col-sm-8">
-                                   <input class="form-control" id="txt_password" name="txt_password" placeholder="Password" type="password" value="<?php echo set_value('txt_password'); ?>" />
-                                   <span class="text-danger"><?php echo form_error('txt_password'); ?></span>
-                              </div>
-                         </div>
-                    </div>
+				<div class="form-group">
+					<div class="row colbox">
+						<div class="col-lg-4 col-sm-4">
+							<label for="txt_password" class="control-label">Password</label>
+						</div>
+						<div class="col-lg-8 col-sm-8">
+							<input class="form-control" id="txt_password" name="txt_password" placeholder="Password" type="password" value="<?php echo set_value('txt_password'); ?>" />
+							<span class="text-danger"><?php echo form_error('txt_password'); ?></span>
+						</div>
+					</div>
+				</div>
 
-                    <div class="form-group">
-                         <div class="col-lg-12 col-sm-12 text-center">
-                              <input id="btn_login" name="btn_login" type="submit" class="btn btn-default" value="Login" />
-                              <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Cancel" />
-                         </div>
-                    </div>
-               </fieldset>
-               <?php echo form_close(); ?>
-               <?php echo $this->session->flashdata('msg'); ?>
-          </div>
-     </div>
+				<div class="form-group">
+					<div class="col-lg-12 col-sm-12 text-center">
+						<input id="btn_login" name="btn_login" type="submit" class="btn btn-default" value="Login" />
+						<input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Cancel" />
+					</div>
+				</div>
+			</fieldset>
+			<?php echo form_close(); ?>
+			<?php echo $this->session->flashdata('msg'); ?>
+		</div>
+	</div>
 </div>
 
 <!--load jQuery library-->

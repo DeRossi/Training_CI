@@ -10,8 +10,14 @@ class Login_model extends CI_Model {
 
 	public function get_user($user_name, $pwd){
 		//$sql = "select * from user where user_name = '" . $user_name . "' and user_pass = '" . md5($pwd) . "' and user_stt = 'active'";
-		$sql = "select * from user where user_name = '" . $user_name . "' and user_pass = '" . $pwd . "' and user_stt = 'active'";
-		$query = $this->db->query($sql);
+		$sql	= "select * from user where user_name = '" . $user_name . "' and user_pass = '" . $pwd . "' and user_stt = 'active'";
+		$query	= $this->db->query($sql);
 		return $query->num_rows();
+	}
+
+	public function get_user_byID($user_id){
+		$sql = "select * from user where user_id = '" . $user_id. "' and user_stt = 'active'";
+		$query = $this->db->query($sql);
+		return $query;
 	}
 }

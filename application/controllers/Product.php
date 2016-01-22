@@ -6,13 +6,18 @@ class Product extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		if(empty($this->session->userdata('loginuser'))){
+			redirect('login');
+		}
 		$this->_data['base_url'] = base_url();
 		$this->load->model('product_model');
 
 		$this->load->helper('url');
 		$this->load->library('cart');
 		$this->load->library('form_validation');
+		//$this->load->library('zend');
 		//$this->load->library('pagination');
+
 	}
 
 	public function index(){
@@ -36,10 +41,10 @@ class Product extends CI_Controller {
 		$paginator = $this->pagination->create_links();
 
 		$nData = array(
-			'subview'   => 'product/list_product',
-			'titlePage' => 'List All Product',
-			'paginator' => $paginator,
-			'post'      => $querypost
+			'subview'	=> 'product/list_product',
+			'titlePage'	=> 'List All Product',
+			'paginator'	=> $paginator,
+			'post'		=> $querypost
 		);
 		$this->load->view('product/main', $nData);
 	}
@@ -165,10 +170,10 @@ class Product extends CI_Controller {
 		$temp = "SP".rand(000000001, 9999999999)."VN";
 
 		$nData = array(
-			'bd'        => $temp,
-			'subview'   => "product/product_details",
-			'titlePage' => "Product details",
-			'info' => $this->product_model->getProById($id)
+			'bd'		=> $temp,
+			'subview'	=> "product/product_details",
+			'titlePage'	=> "Product details",
+			'info'		=> $this->product_model->getProById($id)
 		);
 		//$this->set_barcode($id);
 

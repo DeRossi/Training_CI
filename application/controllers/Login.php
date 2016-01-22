@@ -33,27 +33,33 @@ class Login extends CI_Controller {
 			if ($this->input->post('btn_login') == "Login"){
 				//check if username and password is correct
 				$usr_result = $this->login_model->get_user($username, $password);
-				//print_r($usr_result);
-					if ($usr_result > 0) //active user record is present
-					{
+					if ($usr_result > 0) { //active user record is present
 						//set the session variables
 						$sessiondata = array(
-							'username' => $username,
-							'loginuser' => TRUE
+							'username'	=> $username,
+							'loginuser'	=> TRUE
 						);
 						$this->session->set_userdata($sessiondata);
 						redirect("product");
 					}
 					else{
-						$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Invalid username and password!</div>');
-						redirect('login/index');
+						$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Thông tin đăng nhập không chính xác, hãy thử lại !</div>');
+						redirect('login');
 					}
-				}
-				else{
-					redirect('login/index');
-				}
+			}
+			else{
+				redirect('login');
+			}
 		}
 
+	}
+
+	public function logout(){
+		$this->session->unset_userdata($sessiondata);
+		$this->session->unset_userdata('loginuser');
+		$this->session->sess_destroy();
+
+		redirect();
 	}
 
 }
