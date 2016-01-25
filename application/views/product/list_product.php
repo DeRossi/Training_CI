@@ -79,9 +79,7 @@
 		}
 		?>
 
-		<table id="table" border="0" cellpadding="10px" cellspacing="1px">
 
-		</table>
 	</div>
 
 </section>
@@ -97,7 +95,7 @@
 		</li>
 	</ul>
 	<!-- Tab panes -->
-	<div class="tab-content">
+	<div class="tab-content wrapper wrapper-content animated fadeInRight">
 		<div role="tabpanel" class="tab-pane active" id="grid">
 		<!-- ////////////////////////////////////////////// -->
 		<div class="row">
@@ -108,23 +106,30 @@
 					<div class="ibox">
 						<div class="ibox-content product-box">
 							<div class="product-imitation" style="padding: 22px 0;">
-							<a href="<?php ?>" class="btn btn-xs btn-outline btn-primary"><h4>Thêm vào giỏ hàng</h4></a>
+
 								<a href="<?php echo base_url()."product/details/".$row->pro_id; ?>">
-									<img src="<?php echo base_url()."common/img/upload/".$row->pro_img; ?>" width="240px" height="180px">
+									<?php if($row->pro_img){ ?>
+									<img src="<?php echo base_url()."common/img/upload/".$row->pro_img; ?>" width="235px" height="180px">
+									<?php } else { ?>
+									<img src="http://developer-agent.com/wp-content/uploads/2015/05/images_no_image_jpg3.jpg" width="235px" height="180px">
+									<?php } ?>
 								</a>
 							</div>
 							<div class="product-desc">
 								<span class="product-price">
+									<span class="badge"><a href="#table">Thêm vào giỏ hàng</a></span>
 									<?php echo $row->pro_price; ?> VND
 								</span>
 								<small class="text-muted">Category</small>
-								<a href="<?php echo base_url()."product/details/".$row->pro_id; ?>" class="product-name"> <?php echo $row->pro_name; ?> </a>
+								<a href="<?php echo base_url()."product/details/".$row->pro_id; ?>" class="product-name"> <?php echo $row->pro_name; ?></a>
+								<span class="badge"><a href="<?php echo base_url()."product/edit/".$row->pro_id; ?>">Chỉnh sửa thông tin</a></span>
+								<span class="badge"><a href="#">Xóa SP</a></span>
 
 								<div class="small m-t-xs">
 									<?php echo $row->pro_desc; ?>
 								</div>
 								<div class="m-t text-righ">
-									<button type="button" class="btn btn-xs btn-outline btn-primary"><a href="<?php echo base_url()."product/edit/".$row->pro_id; ?>">Chỉnh sửa thông tin</a> | <a href="#2">Xóa sản phẩm</a></button>
+									<!--<button type="button" class="btn btn-xs btn-outline btn-primary"><a href="<?php echo base_url()."product/edit/".$row->pro_id; ?>">Chỉnh sửa thông tin</a> | <a href="#2">Xóa sản phẩm</a></button> -->
 									<a href="<?php echo base_url()."product/details/".$row->pro_id; ?>" class="btn btn-xs btn-outline btn-primary">Xem thông tin chi tiết <i class="fa fa-long-arrow-right"></i> </a>
 								</div>
 							</div>
@@ -141,7 +146,7 @@
 		<div role="tabpanel" class="tab-pane" id="table">
 		<!-- ////////////////////////////////////////////// -->
 		<?php
-			echo '<table class="table table-hover">';
+			echo '<table class="table table-bordered table-hover">';
 			echo '<th>ID</th>';
 			echo '<th>Tên sản phẩm</th>';
 			echo '<th>Giá thành</th>';
@@ -155,12 +160,12 @@
 				<td>" .$row->pro_price. "</td>
 				<td>" .$row->pro_desc. "</td>
 				<td> <img src=" .base_url()."common/img/upload/".$row->pro_img." width='125px' height='80px'> </td>
-				<td><a href=".base_url()."product/edit/".$row->pro_id.">Edit</a> | <a href=".base_url()."product/delete/".$row->pro_id."  onclick='return xacnhan();'>Delete</a></td></tr></table>";
+				<td><a href=".base_url()."product/edit/".$row->pro_id.">Chỉnh sửa</a> | <a href=".base_url()."product/delete/".$row->pro_id."  onclick='return xacnhan();'>Xóa</a></td></tr>";
 			}
+			echo '</table>';
 		?>
 		<!-- ////////////////////////////////////////////// -->
 		</div>
 	</div>
 </div>
-
 

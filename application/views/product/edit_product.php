@@ -16,7 +16,7 @@
 	</div>
 </div>
 
-<form action="<?php echo base_url(); ?>product/edit/<?php echo $info['pro_id']; ?>" method="post" id="categories">
+<div class="container wrapper wrapper-content animated fadeInDownBig" style="width: 99%">
 	<?php
 		echo "<div class=''>";
 		echo "<ul>";
@@ -26,35 +26,48 @@
 		echo "</ul>";
 		echo "</div>";
 	?>
-	<fieldset class="show">
-		<legend align="center"><?php echo $info['pro_name']; ?></legend>
+	<table class="table table-bordered table-hover">
+		<tbody>
+			<tr>
+				<td style="width: 320px">
+					<fieldset class="show scheduler-border">
+						<legend class="scheduler-border"><?php echo $info['pro_name']; ?></legend>
+					<?php
+						$upload=array(
+							"name" => "img",
+							"size" => "25",
+						);
 
-		<label>Tên sản phẩm : </label>
-		<input type="text" name="pro_name" class="input form-control" value="<?php echo $info['pro_name']; ?>" /> <br>
+						echo form_open_multipart(base_url()."product/edit/" .$info['pro_id']);
+						echo form_label("Hình ảnh : ").form_upload($upload)."<br />";
 
-		<label>Giá sản phẩm : </label>
-		<input type="text" name="pro_price" class="input form-control" value="<?php echo $info['pro_price']; ?>" /> <br>
+						if($info['pro_img']){
+						?>
+						<img src="<?php echo base_url()."common/img/upload/".$info['pro_img']; ?>" class="img-responsive" width="240px" height="180px">
+						<?php }
+						else { ?>
+							<img src="http://developer-agent.com/wp-content/uploads/2015/05/images_no_image_jpg3.jpg" class="img-responsive">
+						<?php } ?>
+					</fieldset>
+				</td>
 
-		<label>Thông tin sản phẩm : </label>
-		<!-- <input type="text" name="student_address" class="input form-control" value="<?php echo $info['pro_desc']; ?>" /> -->
-		<textarea name="pro_desc" id="input" class="form-control" rows="3" required="required"><?php echo $info['pro_desc']; ?></textarea>
+				<td>
+					<?php
+						echo form_label('Tên sản phẩm : ').form_input(array('name' => 'pro_name'    , 'class' => 'input form-control'), $info['pro_name']); ?><br><?php
+						echo form_label('Giá sản phẩm : ').form_input(array('name' => 'pro_price'   , 'class' => 'input form-control'), $info['pro_price']); ?><br><?php
+						echo form_label('Thông tin chi tiết : ').form_textarea(array('name' => 'pro_desc' , 'id' => 'input', 'class' => 'form-control', 'rows' => 3, 'value' => $info['pro_desc'])); ?><br><?php
+						echo form_label('Thao tác cuối lúc : '); ?><br><?php
+						echo form_label(" ").form_submit("ok", "Upload");
+						echo form_close();
+					?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 
-		<?php
-			$upload=array(
-				"name" => "img",
-				"size" => "25",
-			);
+</div>
 
-			echo form_open_multipart(base_url()."upload/doupload");
-			echo form_label("Hình ảnh : ").form_upload($upload)."<br />";
-			echo form_label(" ").form_submit("ok", "Upload");
-			echo form_close();
-		?>
 
-		<label>&nbsp;</label><input type="submit" name="ok" value="Sửa thông tin" class="btn" />
-</fieldset>
-
-</form>
-
+<?php echo $errors_msg; ?>
 
 <?php } ?>

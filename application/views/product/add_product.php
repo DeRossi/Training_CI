@@ -1,5 +1,21 @@
-<h2><b>Thêm mới sản phẩm</b></h2>
-<form action="<?php echo $base_url."product/add"; ?>" method="post" id="categories">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>Thêm mới sản phẩm</h2>
+		<ol class="breadcrumb">
+			<li>
+				<a href="#">Trang chủ</a>
+			</li>
+			<li>
+				<a href="<?php echo base_url()."product" ?>">Sản phẩm</a>
+			</li>
+			<li class="active">
+				<strong></strong>
+			</li>
+		</ol>
+	</div>
+</div>
+
+<div class="container wrapper wrapper-content animated fadeInDownBig" style="width: 99%">
 	<?php
 		echo "<div class=''>";
 		echo "<ul>";
@@ -9,18 +25,41 @@
 		echo "</ul>";
 		echo "</div>";
 	?>
-	<fieldset class="show">
-		<legend align="center">Thông tin sản phẩm</legend>
+	<table class="table table-bordered table-hover">
+		<tbody>
+			<tr>
+				<td style="width: 320px">
+					<fieldset class="show scheduler-border">
+						<legend class="scheduler-border">pro name</legend>
+					<?php
+						$upload=array(
+							"name" => "img",
+							"size" => "25",
+						);
 
-		<label>Tên sản phẩm : </label>
-		<input type="text" name="student_name" id="input" class="form-control" value="" required="required" pattern="" title=""> <br>
-		<label>Giá : </label>
-		<input type="text" name="student_sex" id="input" class="form-control" value="" required="required" pattern="" title=""> <br>
-		<label>Hình ảnh : </label>
-		<input type="text" name="student_address" id="input" class="form-control" value="" required="required" pattern="" title="">
+						echo form_open_multipart(base_url()."product/add");
+						echo form_label("Hình ảnh : ").form_upload($upload)."<br />";
 
-	</select></br />
-	<label>&nbsp;</label><input type="submit" name="ok" value="Add Student" class="btn" />
-</fieldset>
 
-</form>
+						?>
+						<img src="http://developer-agent.com/wp-content/uploads/2015/05/images_no_image_jpg3.jpg" class="img-responsive" width="240px" height="180px">
+					</fieldset>
+				</td>
+
+				<td>
+					<?php
+
+						echo form_label('Tên sản phẩm : ').form_input(array('name' => 'pro_name'    , 'class' => 'input form-control')); ?><br><?php
+						echo form_label('Giá sản phẩm : ').form_input(array('name' => 'pro_price'   , 'class' => 'input form-control')); ?><br><?php
+						echo form_label('Thông tin chi tiết : ').form_textarea(array('name' => 'pro_desc', 'id' => 'input', 'class' => 'form-control', 'rows' => 3)); ?><br><?php
+						echo form_label('Thao tác cuối lúc : '); ?><br><?php
+						echo form_label(" ").form_submit("ok", "Upload");
+						echo form_close();
+					?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+

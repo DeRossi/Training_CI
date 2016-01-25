@@ -14,15 +14,12 @@ class Product extends CI_Controller {
 		$this->load->model('product_model');
 
 		$this->load->helper('form', 'url');
-		$this->load->library(array('session', 'cart', 'upload', 'form_validation'));
-		//$this->load->library('zend');
-		//$this->load->library('pagination');
-
+		$this->load->library(array('session', 'cart', 'upload', 'form_validation')); // zend, pagination
 	}
 
 	public function index(){
 		$this->db->select('*')->from('product');
-		//$this->db->from('product');
+
 		$offset	= $this->uri->segment(2);
 		$limit	= 4;
 		$this->db->limit($limit, $offset);
@@ -43,7 +40,7 @@ class Product extends CI_Controller {
 
 		$nData = array(
 			'subview'	=> 'product/list_product',
-			'titlePage'	=> 'List All Product',
+			'titlePage'	=> 'Danh mục sản phẩm',
 			'paginator'	=> $paginator,
 			'post'		=> $querypost
 		);
@@ -85,10 +82,10 @@ class Product extends CI_Controller {
 			$qty    = $cart['qty'];
 
 			$data = array(
-				'rowid'  => $rowid,
-				'price'  => $price,
-				'amount' => $amount,
-				'qty'    => $qty
+				'rowid'		=> $rowid,
+				'price'		=> $price,
+				'amount'	=> $amount,
+				'qty'		=> $qty
 			);
 			$this->cart->update($data);
 		}
@@ -100,7 +97,7 @@ class Product extends CI_Controller {
 	}
 
 	public function save_order(){
-
+		echo "test";
 	}
 
 	public function add(){
@@ -129,12 +126,33 @@ class Product extends CI_Controller {
 	public function edit($id = null){
 		$this->form_validation->set_rules("pro_name", "pro_name", "required|min_length[6]");
 		$this->form_validation->set_rules("pro_desc", "pro_desc", "required|min_length[6]");
+
+		if($this->input->post("ok")){
+			$config['upload_path']		= './common/img/upload/';
+			$config['allowed_types']	= 'gif|jpg|png';
+			$config['max_size']			= '900';
+			$config['max_width']		= '1024';
+			$config['max_height']		= '768';
+
+			$this->load->library("upload", $config);
+			$this->upload->initialize($config);
+
+			if($this->upload->do_upload('img')){
+				//echo "Upload ok";
+				$check = $this->upload->data();
+				$data['file_name'] = $check['file_name'];
+			} else {
+				//$check = $this->upload->data();
+				$data['errors'] = $this->upload->display_errors();
+			}
+		}
+
 		if($this->form_validation->run() == true){
 			$data_update = array(
 				"pro_name"	=> $this->input->post("pro_name"),
 				"pro_price"	=> $this->input->post("pro_price"),
 				"pro_desc"	=> $this->input->post("pro_desc"),
-				//"pro_img" =>
+				"pro_img"	=> $data['file_name']
 			);
 			$this->product_model->update($id, $data_update);
 			$this->session->set_flashdata('flash_mess', 'Update success');
@@ -142,9 +160,12 @@ class Product extends CI_Controller {
 		}
 
 		$nData = array(
-			'titlePage' => 'Sửa thông tin mặt hàng',
-			'subview'   => 'product/edit_product',
-			'info'      => $this->product_model->getProById($id)
+			'errors_msg' => $this->upload->display_errors(),
+
+
+			'titlePage'	=> 'Sửa thông tin mặt hàng',
+			'subview'	=> 'product/edit_product',
+			'info'		=> $this->product_model->getProById($id)
 		);
 		$this->load->view('product/main', $nData);
 	}
@@ -157,7 +178,7 @@ class Product extends CI_Controller {
 	}
 
 	public function search(){
-		$keyword = $this->input->post('student_name');
+		$keyword = $this->input->post('pro_name');
 
 		$nData = array(
 			'titlePage' => 'Search Product',
