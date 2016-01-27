@@ -1,27 +1,32 @@
-<form action="<?php echo base_url();?>students/search" method="post" id="categories">
+<div class="container">
+	<form action="<?php echo base_url();?>product/search" method="post" id="categories">
 
-<input type="text" class="searchBox form-control" id="searchBox" name="student_name" placeholder="enter name of student you want" />
-<input type="submit" value="Search by student name" class="btnInput" id="btnInput"> </input>
-<br><br>
-<?php
-echo '<hr>';
-echo '<h2><b> Students List </b></h2>';
-echo '<table id="" class="table">';
-echo '<th> ID</th>';
-echo '<th> Students name </th>';
-echo '<th> Students DOB </th>';
-echo '<th> Student sex </th>';
-echo '<th> Students address </th>';
+	<input type="text" class="searchBox form-control" id="searchBox" name="pro_name" placeholder="Tìm kiếm sản phẩm" />
+	<input type="submit" value="Tìm kiếm sản phẩm" class="btnInput" id="btnInput"> </input>
+	<br><br>
+	<?php
+	echo '<hr>';
+	echo '<h2><b>  List </b></h2>';
+	echo '<table id="" class="table">';
+	echo '<th> ID</th>';
+	echo '<th> Tên sản phẩm </th>';
+	echo '<th> Giá thành </th>';
+	echo '<th> Hình ảnh </th>';
+	echo '<th> Thông tin sản phẩm </th>';
 
-foreach($results as $rows) {
-	echo '<tr>
-	<td>'.$rows->id.'</td>
-	<td>'.$rows->student_name.'</td>
-	<td>'.$rows->student_birth.'</td>
-	<td>'.$rows->student_sex.'</td>
-	<td>'.$rows->student_address.'</td>
-</tr>';
-}
-echo '</table>';
-?>
-</form>
+	echo '<hr>';
+	echo '<b style="color: red">' .$keyword. '</b>';
+
+	foreach($results as $rows) {
+		echo '<tr>
+		<td>'.$rows->pro_id.'</td>
+		<td>'.$rows->pro_name.'</td>
+		<td>'.$rows->pro_price.'</td>
+		<td>'.$rows->pro_img.'</td>
+		<td>'.$rows->pro_desc.'</td>
+	</tr>';
+	}
+	echo '</table>';
+	?>
+	</form>
+</div>

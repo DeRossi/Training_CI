@@ -6,6 +6,7 @@ class Product extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		define('EXT', '.php');
 		if(empty($this->session->userdata('loginuser'))){
 			redirect('login');
 		}
@@ -15,6 +16,7 @@ class Product extends CI_Controller {
 
 		$this->load->helper('form', 'url');
 		$this->load->library(array('session', 'cart', 'upload', 'form_validation')); // zend, pagination
+		//$this->load->library('zend');
 	}
 
 	public function index(){
@@ -76,10 +78,10 @@ class Product extends CI_Controller {
 		$cart_info = $_POST['cart'];
 
 		foreach ($cart_info as $id => $cart) {
-			$rowid  = $cart['rowid'];
-			$price  = $cart['price'];
-			$amount = $price * $cart['qty'];
-			$qty    = $cart['qty'];
+			$rowid	= $cart['rowid'];
+			$price	= $cart['price'];
+			$amount	= $price * $cart['qty'];
+			$qty	= $cart['qty'];
 
 			$data = array(
 				'rowid'		=> $rowid,
@@ -105,10 +107,15 @@ class Product extends CI_Controller {
 		$this->form_validation->set_rules("pro_desc", "pro_desc", "required|min_length[6]");
 
 		if($this->form_validation->run() == true){
+			date_default_timezone_set('Asia/Ho_Chi_Minh');
+			$date_created = date("H:i:s - d/m/Y");
+
 			$data_insert = array(
-				"pro_name"	=> $this->input->post("pro_name"),
-				"pro_price"	=> $this->input->post("pro_price"),
-				"pro_desc"	=> $this->input->post("pro_desc"),
+				"pro_name"		=> $this->input->post("pro_name"),
+				"pro_price"		=> $this->input->post("pro_price"),
+				"pro_desc"		=> $this->input->post("pro_desc"),
+				"date_created"	=> $date_created,
+				"pro_barcode"	=> "SP".rand(000000001, 9999999999)."VN"
 			);
 			$this->product_model->insert($data_insert);
 
@@ -148,11 +155,15 @@ class Product extends CI_Controller {
 		}
 
 		if($this->form_validation->run() == true){
+			date_default_timezone_set('Asia/Ho_Chi_Minh');
+			$date_modidied = date("H:i:s - d/m/Y");
+
 			$data_update = array(
-				"pro_name"	=> $this->input->post("pro_name"),
-				"pro_price"	=> $this->input->post("pro_price"),
-				"pro_desc"	=> $this->input->post("pro_desc"),
-				"pro_img"	=> $data['file_name']
+				"pro_name"		=> $this->input->post("pro_name"),
+				"pro_price"		=> $this->input->post("pro_price"),
+				"pro_desc"		=> $this->input->post("pro_desc"),
+				"date_modified"	=> $date_modidied,
+				"pro_img"		=> $data['file_name']
 			);
 			$this->product_model->update($id, $data_update);
 			$this->session->set_flashdata('flash_mess', 'Update success');
@@ -160,12 +171,12 @@ class Product extends CI_Controller {
 		}
 
 		$nData = array(
-			'errors_msg' => $this->upload->display_errors(),
+			'errors_msg'	=> $this->upload->display_errors(),
+			'bd'			=> "SP".rand(000000001, 9999999999)."VN",
 
-
-			'titlePage'	=> 'Sửa thông tin mặt hàng',
-			'subview'	=> 'product/edit_product',
-			'info'		=> $this->product_model->getProById($id)
+			'titlePage'		=> 'Sửa thông tin mặt hàng',
+			'subview'		=> 'product/edit_product',
+			'info'			=> $this->product_model->getProById($id)
 		);
 		$this->load->view('product/main', $nData);
 	}
@@ -177,43 +188,41 @@ class Product extends CI_Controller {
 		redirect(base_url(). "product");
 	}
 
-	public function search(){
-		$keyword = $this->input->post('pro_name');
-
-		$nData = array(
-			'titlePage' => 'Search Product',
-			'subview'   => 'product/search_product',
-			'results'   => $this->product_model->search_std($keyword)
-		);
-		$this->load->view('product/main', $nData);
-	}
-
 	public function details($id = null){
 		$this->load->model('product_model');
 
 		$temp = "SP".rand(000000001, 9999999999)."VN";
 
 		$nData = array(
-			'bd'		=> $temp,
+			'bd'		=> "SP".rand(000000001, 9999999999)."VN",
 			'subview'	=> "product/product_details",
 			'titlePage'	=> "Product details",
 			'info'		=> $this->product_model->getProById($id)
 		);
 		//$this->set_barcode($id);
-
-		//$data['info'] = $this->product_model->getProById($id);
 		$this->load->view('product/main', $nData);
 	}
 
-	public function set_barcode($code=null){
+	public function set_barcode($code){
 		//load library
 		$this->load->library('zend');
 		//load in folder Zend
 		$this->zend->load('Zend/Barcode');
 		// generate Barcode
 		Zend_Barcode::render('code128', 'image', array('text'=>$code), array());
+	}
 
-        //return $imageResource;
+	public function search(){
+		$keyword = $this->input->post('pro_name');
+
+		$nData = array(
+			'titlePage'	=> 'Tìm kiếm sản phẩm',
+			'subview'	=> 'product/search_product',
+
+			'keyword'	=> $keyword,
+			'results'	=> $this->product_model->search_std($keyword)
+		);
+		$this->load->view('product/main', $nData);
 	}
 }
 

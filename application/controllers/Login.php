@@ -5,6 +5,10 @@ class Login extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+
+		if($this->session->userdata('loginuser')){
+			redirect('product');
+		}
 		$this->load->library('session');
 		$this->load->library('form_validation');
 
@@ -65,4 +69,4 @@ class Login extends CI_Controller {
 }
 
 /* End of file Login.php */
-/* Location: ./application/controllers/Students.php */
+/* Location: ./application/controllers/Login.php */

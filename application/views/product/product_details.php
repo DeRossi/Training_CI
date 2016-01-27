@@ -1,15 +1,7 @@
 <?php
-	echo "<pre>";
-	print_r($info, $bd);
-	echo "</pre>";
-
-	echo "<pre>";
-	print_r($bd);
-	echo "</pre>";
-
-	echo "<pre>";
+	/*echo "<pre>";
 	print_r($info);
-	echo "</pre>";
+	echo "</pre>";*/
 ?>
 <div class="row wrapper border-bottom white-bg page-heading">
 	<div class="col-lg-10">
@@ -54,13 +46,15 @@
 							<h2 class="font-bold m-b-xs">
 								<?php echo $info['pro_name']; ?>
 							</h2>
-							<small>Many desktop publishing packages and web page editors now.</small>
-							<div class="m-t-md">
-								<h2 class="product-main-price">$ <?php echo $info['pro_price'] ?> <small class="text-muted">Exclude Tax</small> </h2>
-							</div>
-							<hr>
 
-							<img width="300px" height="100px" src="<?php echo base_url()."product/details/".$info['pro_id']."/set_barcode/".$bd ?>"/>
+							<div class="m-t-md">
+								<h2 class="product-main-price"><?php echo $info['pro_price'] ?> VND <small class="text-muted">Exclude Tax</small> </h2>
+							</div>
+							<br>
+							<!--<img width="300px" height="100px" src="<?php echo base_url('barcode/set_barcode/'.$bd);?>"/>
+							<img width="300px" height="100px" src="<?php echo base_url()."product/details/".$info['pro_id']."/set_barcode/".$bd ?>"/> -->
+
+							<img width="300px" height="100px" src="<?php echo base_url("barcode/set_barcode/".$bd); ?>"/>
 
 							<h4>Product description</h4>
 

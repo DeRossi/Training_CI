@@ -30,7 +30,7 @@
 			<tr>
 				<td style="width: 320px">
 					<fieldset class="show scheduler-border">
-						<legend class="scheduler-border">pro name</legend>
+						<legend class="scheduler-border">Sản phẩm mới</legend>
 					<?php
 						$upload=array(
 							"name" => "img",
@@ -48,11 +48,10 @@
 
 				<td>
 					<?php
-
 						echo form_label('Tên sản phẩm : ').form_input(array('name' => 'pro_name'    , 'class' => 'input form-control')); ?><br><?php
 						echo form_label('Giá sản phẩm : ').form_input(array('name' => 'pro_price'   , 'class' => 'input form-control')); ?><br><?php
 						echo form_label('Thông tin chi tiết : ').form_textarea(array('name' => 'pro_desc', 'id' => 'input', 'class' => 'form-control', 'rows' => 3)); ?><br><?php
-						echo form_label('Thao tác cuối lúc : '); ?><br><?php
+
 						echo form_label(" ").form_submit("ok", "Upload");
 						echo form_close();
 					?>

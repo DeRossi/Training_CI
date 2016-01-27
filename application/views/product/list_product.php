@@ -55,7 +55,7 @@
 ?>
 <div class="row wrapper border-bottom white-bg page-heading">
 	<div class="col-lg-10">
-		<h2>Danh mục sản phẩm</h2>
+		<h2>Danh mục sản phẩm</h2>te
 		<ol class="breadcrumb">
 			<li>
 				<a href="<?php echo base_url()."" ?>">Trang chủ</a>
@@ -81,7 +81,6 @@
 
 
 	</div>
-
 </section>
 
 <div role="tabpanel">
@@ -118,7 +117,7 @@
 							<div class="product-desc">
 								<span class="product-price">
 									<span class="badge"><a href="#table">Thêm vào giỏ hàng</a></span>
-									<?php echo $row->pro_price; ?> VND
+									<?php echo number_format($row->pro_price); ?> VND
 								</span>
 								<small class="text-muted">Category</small>
 								<a href="<?php echo base_url()."product/details/".$row->pro_id; ?>" class="product-name"> <?php echo $row->pro_name; ?></a>

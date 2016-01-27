@@ -33,7 +33,7 @@
 					<fieldset class="show scheduler-border">
 						<legend class="scheduler-border"><?php echo $info['pro_name']; ?></legend>
 					<?php
-						$upload=array(
+						$upload = array(
 							"name" => "img",
 							"size" => "25",
 						);
@@ -48,6 +48,8 @@
 						else { ?>
 							<img src="http://developer-agent.com/wp-content/uploads/2015/05/images_no_image_jpg3.jpg" class="img-responsive">
 						<?php } ?>
+						<br>
+						<img width="240px" height="auto" src="<?php echo base_url("barcode/set_barcode/".$bd); ?>"/>
 					</fieldset>
 				</td>
 
@@ -56,8 +58,10 @@
 						echo form_label('Tên sản phẩm : ').form_input(array('name' => 'pro_name'    , 'class' => 'input form-control'), $info['pro_name']); ?><br><?php
 						echo form_label('Giá sản phẩm : ').form_input(array('name' => 'pro_price'   , 'class' => 'input form-control'), $info['pro_price']); ?><br><?php
 						echo form_label('Thông tin chi tiết : ').form_textarea(array('name' => 'pro_desc' , 'id' => 'input', 'class' => 'form-control', 'rows' => 3, 'value' => $info['pro_desc'])); ?><br><?php
-						echo form_label('Thao tác cuối lúc : '); ?><br><?php
-						echo form_label(" ").form_submit("ok", "Upload");
+
+						echo form_label('<h3 style="font-family:Courier New">Thời điểm thêm mới sản phẩm : ' .$info['date_created']. '</h3>'); ?><br><?php
+						echo form_label('<h3 style="font-family:Courier New">Thời điểm cập nhật gần nhất : ' .$info['date_modified']. '</h3>'); ?><br><?php
+						echo form_label(" ").form_submit("ok", "Cập nhật");
 						echo form_close();
 					?>
 				</td>
