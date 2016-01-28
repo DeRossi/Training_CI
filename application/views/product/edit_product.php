@@ -1,3 +1,5 @@
+<?php echo $info['date_modified'];?><br><?php echo substr($info['date_modified'], 14); ?>
+
 <?php if($info['pro_id']) { ?>
 <div class="row wrapper border-bottom white-bg page-heading">
 	<div class="col-lg-10">
@@ -56,7 +58,7 @@
 				<td>
 					<?php
 						echo form_label('Tên sản phẩm : ').form_input(array('name' => 'pro_name'    , 'class' => 'input form-control'), $info['pro_name']); ?><br><?php
-						echo form_label('Giá sản phẩm : ').form_input(array('name' => 'pro_price'   , 'class' => 'input form-control'), $info['pro_price']); ?><br><?php
+						echo form_label('Giá sản phẩm (VND) : ').form_input(array('name' => 'pro_price'   , 'class' => 'input form-control pro_price'), number_format($info['pro_price'])); ?><br><?php
 						echo form_label('Thông tin chi tiết : ').form_textarea(array('name' => 'pro_desc' , 'id' => 'input', 'class' => 'form-control', 'rows' => 3, 'value' => $info['pro_desc'])); ?><br><?php
 
 						echo form_label('<h3 style="font-family:Courier New">Thời điểm thêm mới sản phẩm : ' .$info['date_created']. '</h3>'); ?><br><?php

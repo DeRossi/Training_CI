@@ -4,6 +4,8 @@
 	<title><?php echo $titlePage; ?></title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<!-- <meta name="author" content="Hasegawa Kaito" /> -->
+
+	<link href="<?php echo base_url(); ?>common/css/plugins/chartist/chartist.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>common/css/bootstrap.min.css" charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>common/css/plugins/toastr/toastr.min.css" charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>common/css/animate.css" charset="utf-8" />
@@ -33,9 +35,11 @@
 	<script src="<?php echo base_url(); ?>common/js/plugins/chartJs/Chart.min.js"></script>
 	<script src="<?php echo base_url(); ?>common/js/plugins/toastr/toastr.min.js"></script>
 
+	<script src="<?php echo base_url(); ?>common/js/autosearch.js"></script>
+
 	<script language="javascript">
 setTimeout(function(){
-  $("body").append('Some text');
+  $("body").append('');
 }, 2000);
 		function xacnhan() {
 			if (!window.confirm('You want delete ?')) {
@@ -220,16 +224,16 @@ setTimeout(function(){
 						</div>
 					</li>
 					<li class="active">
-						<a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Students</span> <span class="fa arrow"></span></a>
+						<a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Category</span></a>
 						<ul class="nav nav-second-level">
-							<li><a href="<?php echo base_url();?>students">Show list</a></li>
-							<li><a href="<?php echo base_url();?>students/add">Add Student</a></li>
-							<li><a href="<?php echo base_url();?>students/search">Search Student</a></li>
+							<li><a href="<?php echo base_url();?>category">List chủng loại</a></li>
+							<li><a href="<?php echo base_url();?>category/add">Thêm chủng loại</a></li>
+							<li><a href="<?php echo base_url();?>category/search">Tìm kiếm chủng loại</a></li>
 						</ul>
 					</li> <br>
 
 					<li class="active">
-						<a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Sản phẩm</span> <span class="fa arrow"></span></a>
+						<a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Sản phẩm</span></a>
 						<ul class="nav nav-second-level">
 							<li><a href="<?php echo base_url();?>product">List sản phẩm</a></li>
 							<li><a href="<?php echo base_url();?>product/add">Thêm sản phẩm</a></li>

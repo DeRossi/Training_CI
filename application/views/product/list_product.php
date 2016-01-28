@@ -55,7 +55,7 @@
 ?>
 <div class="row wrapper border-bottom white-bg page-heading">
 	<div class="col-lg-10">
-		<h2>Danh mục sản phẩm</h2>te
+		<h2>Danh mục sản phẩm</h2>
 		<ol class="breadcrumb">
 			<li>
 				<a href="<?php echo base_url()."" ?>">Trang chủ</a>
@@ -87,7 +87,7 @@
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active">
-		<a href="#grid" aria-controls="grid" role="tab" data-toggle="tab">Xem dạng lưới</a>
+		<a href="<?php echo base_url()."product"?>#grid" aria-controls="grid" role="tab" data-toggle="tab">Xem dạng lưới</a>
 		</li>
 		<li role="presentation">
 			<a href="#table" aria-controls="table" role="tab" data-toggle="tab">Xem dạng bảng</a>
@@ -115,8 +115,8 @@
 								</a>
 							</div>
 							<div class="product-desc">
-								<span class="product-price">
-									<span class="badge"><a href="#table">Thêm vào giỏ hàng</a></span>
+								<span class="product-price" style="text-align: center">
+									<span class="badge"><a href="#table">Thêm vào giỏ hàng</a></span><br>
 									<?php echo number_format($row->pro_price); ?> VND
 								</span>
 								<small class="text-muted">Category</small>
@@ -137,10 +137,10 @@
 				</div>
 				<?php } ?>
 			</div>
-				<div class="paging"><?php echo '<h4>Page : ' .$paginator. '</h4>'; ?></div>
-
+				<div class="paging"><?php echo '<h4>' .$paginator. '</h4>'; ?></div>
 		<!-- ////////////////////////////////////////////// -->
 		</div>
+
 
 		<div role="tabpanel" class="tab-pane" id="table">
 		<!-- ////////////////////////////////////////////// -->
@@ -153,7 +153,7 @@
 			echo '<th>Hình ảnh</th>';
 			echo '<th>Thao tác</th>';
 
-			foreach ($query->result() as $row) {
+			foreach ($post->result() as $row) {
 				echo "<tr><td>" .$row->pro_id. "</td>
 				<td>" .$row->pro_name. "</td>
 				<td>" .$row->pro_price. "</td>
@@ -163,6 +163,7 @@
 			}
 			echo '</table>';
 		?>
+		<div class="paging"><?php echo '<h4>' .$paginator. '</h4>'; ?></div>
 		<!-- ////////////////////////////////////////////// -->
 		</div>
 	</div>
