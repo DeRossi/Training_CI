@@ -73,7 +73,7 @@ $(document).ready(function () {
 							<!--<img width="300px" height="100px" src="<?php echo base_url('barcode/set_barcode/'.$bd);?>"/>
 							<img width="300px" height="100px" src="<?php echo base_url()."product/details/".$info['pro_id']."/set_barcode/".$bd ?>"/> -->
 
-							<img width="300px" height="100px" src="<?php echo base_url("barcode/set_barcode/".$bd); ?>"/>
+							<img width="300px" height="100px" src="<?php echo base_url("barcode/set_barcode/".$info['pro_barcode']); ?>"/>
 
 							<h4>Thông tin sản phẩm</h4>
 

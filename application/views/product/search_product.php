@@ -28,9 +28,9 @@
 			 <ul class="dropdown-menu txtproname" style="margin-left:15px;margin-right:0px;" role="menu" aria-labelledby="dropdownMenu" id="DropdownProName">
 			 </ul>
 			 <br>
-			<label class="control-lable">Tìm kiếm theo giá sản phẩm</label>
-			<input type="text" id="pro_name" autocomplete="off" name="pro_name_" class="form-control" placeholder=""> đến
-			<input type="text" id="pro_name" autocomplete="off" name="pro_name_" class="form-control" placeholder="">
+			<label class="control-lable">Tìm kiếm theo giá sản phẩm (VND)</label>
+			<input type="text" id="pro_name" autocomplete="off" name="pro_price_from" class="form-control pro_price" placeholder=""> đến
+			<input type="text" id="pro_name" autocomplete="off" name="pro_price_to" class="form-control pro_price" placeholder="">
 
 		<input type="submit" value="Tìm kiếm sản phẩm" class="btnInput" id="btnInput"> </input>
 		</fieldset>
@@ -38,15 +38,17 @@
 	</div>
 
 	<?php
-		echo '<table id="" class="table">';
+		echo '<table class="table table-bordered table-hover">';
 		echo '<th> ID</th>';
 		echo '<th> Tên sản phẩm </th>';
 		echo '<th> Giá thành </th>';
 		echo '<th> Hình ảnh </th>';
 		echo '<th> Thông tin sản phẩm </th>';
+		echo '<th> Ngày tạo </th>';
+		echo '<th> Thao tác </th>';
 
 		echo '<hr>';
-		echo '<b style="color: red">' .$keyword. '</b>';
+		/*echo '<b style="color: red">' .$keyword. '</b>';*/
 
 		foreach($results as $rows) {
 			echo '<tr>
@@ -55,6 +57,8 @@
 			<td>'.number_format($rows->pro_price).' VND</td>
 			<td>'.$rows->pro_img.'</td>
 			<td>'.$rows->pro_desc.'</td>
+			<td>'.$rows->date_created.'</td>
+			<td> <a href =' .base_url().'product/edit/' .$rows->pro_id. '>Chỉnh sửa</a> | <a href=' .base_url(). 'product/details/' .$rows->pro_id. '>Xem</a> | <a href=' .base_url().'product/delete/' .$rows->pro_id. ' onclick="return xacnhan();">Xóa</a></td>
 		</tr>';
 		}
 		echo '</table>';

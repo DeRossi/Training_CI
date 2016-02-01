@@ -51,7 +51,8 @@
 							<img src="http://developer-agent.com/wp-content/uploads/2015/05/images_no_image_jpg3.jpg" class="img-responsive">
 						<?php } ?>
 						<br>
-						<img width="240px" height="auto" src="<?php echo base_url("barcode/set_barcode/".$bd); ?>"/>
+						<!-- <img width="240px" height="auto" src="<?php echo base_url("barcode/set_barcode/".$bd); ?>"/> -->
+						<img width="240px" height="auto" src="<?php echo base_url("barcode/set_barcode/".$info['pro_barcode']); ?>"/>
 					</fieldset>
 				</td>
 
@@ -74,6 +75,6 @@
 </div>
 
 
-<?php echo $errors_msg; ?>
+<?php //echo $errors_msg; ?>
 
 <?php } ?>

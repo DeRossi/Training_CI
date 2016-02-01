@@ -4,7 +4,24 @@
 	<title><?php echo $titlePage; ?></title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<!-- <meta name="author" content="Hasegawa Kaito" /> -->
+	<style>
+	table {
+		border-collapse: collapse;
+		width: 100%;
+	}
 
+	th, td {
+		text-align: left;
+		padding: 8px;
+	}
+
+	tr:nth-child(even){ background-color: #d9d9d9}
+
+	th {
+		background-color: #b30000;
+		color: white;
+	}
+	</style>
 	<link href="<?php echo base_url(); ?>common/css/plugins/chartist/chartist.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>common/css/bootstrap.min.css" charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>common/css/plugins/toastr/toastr.min.css" charset="utf-8" />
@@ -42,7 +59,7 @@ setTimeout(function(){
   $("body").append('');
 }, 2000);
 		function xacnhan() {
-			if (!window.confirm('You want delete ?')) {
+			if (!window.confirm('Bạn thực sự muốn xóa sản phẩm này ?')) {
 				return false;
 			}
 		}

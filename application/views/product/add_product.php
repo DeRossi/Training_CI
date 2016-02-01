@@ -50,6 +50,8 @@
 					<?php
 						echo form_label('Tên sản phẩm : ').form_input(array('name' => 'pro_name'    , 'class' => 'input form-control')); ?><br><?php
 						echo form_label('Giá sản phẩm : ').form_input(array('name' => 'pro_price'   , 'class' => 'input form-control pro_price')); ?><br><?php
+						// Hidden
+						echo form_input(array('type' => 'hidden', 'name' => 'pro_price_'   , 'class' => 'input form-control')); ?> <?php
 						echo form_label('Thông tin chi tiết : ').form_textarea(array('name' => 'pro_desc', 'id' => 'input', 'class' => 'form-control', 'rows' => 3)); ?><br><?php
 
 						echo form_label(" ").form_submit("ok", "Upload");

@@ -128,7 +128,6 @@
 									<?php echo $row->pro_desc; ?>
 								</div>
 								<div class="m-t text-righ">
-									<!--<button type="button" class="btn btn-xs btn-outline btn-primary"><a href="<?php echo base_url()."product/edit/".$row->pro_id; ?>">Chỉnh sửa thông tin</a> | <a href="#2">Xóa sản phẩm</a></button> -->
 									<a href="<?php echo base_url()."product/details/".$row->pro_id; ?>" class="btn btn-xs btn-outline btn-primary">Xem thông tin chi tiết <i class="fa fa-long-arrow-right"></i> </a>
 								</div>
 							</div>
@@ -151,15 +150,22 @@
 			echo '<th>Giá thành</th>';
 			echo '<th>Mô tả</th>';
 			echo '<th>Hình ảnh</th>';
+			echo '<th>Ngày tạo</th>';
 			echo '<th>Thao tác</th>';
 
 			foreach ($post->result() as $row) {
+				if($row->pro_img){
+					$src_img = "<img src=" .base_url()."common/img/upload/".$row->pro_img." width='125px' height='80px'>";
+				} else {
+					$src_img = "<img src='http://developer-agent.com/wp-content/uploads/2015/05/images_no_image_jpg3.jpg' width='125px' height='80px'>";
+				}
 				echo "<tr><td>" .$row->pro_id. "</td>
 				<td>" .$row->pro_name. "</td>
 				<td>" .$row->pro_price. "</td>
 				<td>" .$row->pro_desc. "</td>
-				<td> <img src=" .base_url()."common/img/upload/".$row->pro_img." width='125px' height='80px'> </td>
-				<td><a href=".base_url()."product/edit/".$row->pro_id.">Chỉnh sửa</a> | <a href=".base_url()."product/delete/".$row->pro_id."  onclick='return xacnhan();'>Xóa</a></td></tr>";
+				<td>" .$src_img. "</td>
+				<td>" .$row->date_created. "</td>
+				<td><a href=".base_url()."product/edit/".$row->pro_id.">Chỉnh sửa</a> | <a href=".base_url()."product/details/" .$row->pro_id. ">Xem</a> | <a href=".base_url()."product/delete/".$row->pro_id."  onclick='return xacnhan();'>Xóa</a></td></tr>";
 			}
 			echo '</table>';
 		?>
@@ -168,4 +174,6 @@
 		</div>
 	</div>
 </div>
+
+
 

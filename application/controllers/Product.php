@@ -104,6 +104,7 @@ class Product extends CI_Controller {
 
 	public function add(){
 		$this->form_validation->set_rules("pro_name", "pro_name", "required|min_length[6]");
+		$this->form_validation->set_rules("pro_price_", "pro_price", "numeric|min_length[5]|max_length[12]");
 		$this->form_validation->set_rules("pro_desc", "pro_desc", "required|min_length[6]");
 
 		if($this->form_validation->run() == true){
@@ -117,7 +118,7 @@ class Product extends CI_Controller {
 				"pro_desc"		=> $this->input->post("pro_desc"),
 				"date_created"	=> $date_created,
 				"month_import"	=> $month_import,
-				"pro_barcode"	=> "SP".rand(000000001, 9999999999)."VN"
+				"pro_barcode"	=> "893".rand(0000000001, 9999999999).""
 			);
 			$this->product_model->insert($data_insert);
 
@@ -126,19 +127,20 @@ class Product extends CI_Controller {
 		}
 
 		$nData = array(
-			'subview'   => 'product/add_product',
-			'titlePage' => 'Thêm mặt hàng'
+			'subview'	=> 'product/add_product',
+			'titlePage'	=> 'Thêm mặt hàng'
 		);
 		$this->load->view('product/main', $nData);
 	}
 
 	public function edit($id = null){
-		$this->form_validation->set_rules("pro_name", "pro_name", "required|min_length[6]");
+		$this->form_validation->set_rules("pro_name", "pro_name", "required|min_length[6]|max_length[15]");
+		$this->form_validation->set_rules("pro_price", "pro_price", "required|numeric|min_length[5]|max_length[12]");
 		$this->form_validation->set_rules("pro_desc", "pro_desc", "required|min_length[6]");
 
 		if($this->input->post("ok")){ //Upload
 			$config['upload_path']		= './common/img/upload/';
-			$config['allowed_types']	= 'gif|jpg|png';
+			$config['allowed_types']	= 'gif|jpg|JPG|png|PNG';
 			$config['max_size']			= '900';
 			$config['max_width']		= '1024';
 			$config['max_height']		= '768';
@@ -149,30 +151,34 @@ class Product extends CI_Controller {
 			if($this->upload->do_upload('img')){
 				//echo "Upload ok";
 				$check = $this->upload->data();
-				$data_uploadIMG = $check['file_name'];
 
-				$this->session->set_userdata($data_uploadIMG);
 			} else {
-				$data['errors'] = $this->upload->display_errors();
+				//$data['errors'] = $this->upload->display_errors();
 
-				if($this->session->userdata($data_uploadIMG)){
-					$data_uploadIMG = $this->session->userdata($data_uploadIMG);
-				}
 			}
-			// thử session lưu cho trường hợp chỉ edit thông tin, ko edit hình ảnh
+			// Solve problem : giải quyết từ $data_update chứ ko phải từ $check
 		}
 
 		if($this->form_validation->run() == true){
 			date_default_timezone_set('Asia/Ho_Chi_Minh');
 			$date_modidied = date("H:i:s - d/m/Y");
 
-			$data_update = array(
-				"pro_name"		=> $this->input->post("pro_name"),
-				"pro_price"		=> str_replace(',', '', $this->input->post("pro_price")),
-				"pro_desc"		=> $this->input->post("pro_desc"),
-				"date_modified"	=> $date_modidied,
-				"pro_img"		=> $data_uploadIMG
-			);
+			if(is_null($check['file_name'])){
+				$data_update = array(
+					"pro_name"		=> $this->input->post("pro_name"),
+					"pro_price"		=> str_replace(',', '', $this->input->post("pro_price")),
+					"pro_desc"		=> $this->input->post("pro_desc"),
+					"date_modified"	=> $date_modidied,
+				);
+			} else {
+				$data_update = array(
+					"pro_name"		=> $this->input->post("pro_name"),
+					"pro_price"		=> str_replace(',', '', $this->input->post("pro_price")),
+					"pro_desc"		=> $this->input->post("pro_desc"),
+					"date_modified"	=> $date_modidied,
+					"pro_img"		=> $check['file_name']
+				);
+			}
 			$this->product_model->update($id, $data_update);
 			$this->session->set_flashdata('flash_mess', 'Update success');
 			redirect(base_url(). "product");
@@ -180,7 +186,7 @@ class Product extends CI_Controller {
 
 		$nData = array(
 			'errors_msg'	=> $this->upload->display_errors(),
-			'bd'			=> "SP".rand(000000001, 9999999999)."VN",
+			'bd'			=> "893".rand(0000000001, 9999999999)."", //"SP".rand(000000001, 9999999999)."VN",
 
 			'titlePage'		=> 'Sửa thông tin mặt hàng',
 			'subview'		=> 'product/edit_product',
@@ -199,10 +205,10 @@ class Product extends CI_Controller {
 	public function details($id = null){
 		$this->load->model('product_model');
 
-		$temp = "SP".rand(000000001, 9999999999)."VN";
+		$temp = "893".rand(0000000001, 9999999999).""; //"SP".rand(000000001, 9999999999)."VN";
 
 		$nData = array(
-			'bd'		=> "SP".rand(000000001, 9999999999)."VN",
+			'bd'		=> "893".rand(0000000001, 9999999999)."", //"SP".rand(000000001, 9999999999)."VN",
 			'subview'	=> "product/product_details",
 			'titlePage'	=> "Product details",
 			'info'		=> $this->product_model->getProById($id)
@@ -221,14 +227,21 @@ class Product extends CI_Controller {
 	}
 
 	public function search(){
-		$keyword = $this->input->post('pro_name');
+		/*$keyword = array(
+			$keyword_proname	= $this->input->post('pro_name'),
+			$keyword_pricefrom	= $this->input->post('pro_price_from'),
+			$keyword_priceto	= $this->input->post('pro_price_to')
+		);*/
+		$keyword_proname	= $this->input->post('pro_name');
+		$keyword_pricefrom	= str_replace(',', '', $this->input->post('pro_price_from'));
+		$keyword_priceto	= str_replace(',', '', $this->input->post('pro_price_to'));
 
 		$nData = array(
 			'titlePage'	=> 'Tìm kiếm sản phẩm',
 			'subview'	=> 'product/search_product',
 
-			'keyword'	=> $keyword,
-			'results'	=> $this->product_model->search_proname($keyword)
+			/*'keyword'	=> $keyword,*/
+			'results'	=> $this->product_model->search_proname($keyword_proname, $keyword_pricefrom, $keyword_priceto)
 		);
 		$this->load->view('product/main', $nData);
 	}
