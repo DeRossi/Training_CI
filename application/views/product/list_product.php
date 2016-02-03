@@ -147,13 +147,16 @@
 			echo '<table class="table table-bordered table-hover">';
 			echo '<th>ID</th>';
 			echo '<th>Tên sản phẩm</th>';
-			echo '<th>Giá thành</th>';
+			echo '<th>Giá thành (VND)</th>';
 			echo '<th>Mô tả</th>';
 			echo '<th>Hình ảnh</th>';
 			echo '<th>Ngày tạo</th>';
 			echo '<th>Thao tác</th>';
 
 			foreach ($post->result() as $row) {
+				$row->pro_desc = $row->pro_desc. " "; $row->pro_desc = substr($row->pro_desc, 0, 30);
+				$row->pro_desc = substr($row->pro_desc, 0, strpos($row->pro_desc, ' ')); $row->pro_desc = $row->pro_desc. "...";
+
 				if($row->pro_img){
 					$src_img = "<img src=" .base_url()."common/img/upload/".$row->pro_img." width='125px' height='80px'>";
 				} else {
@@ -161,13 +164,15 @@
 				}
 				echo "<tr><td>" .$row->pro_id. "</td>
 				<td>" .$row->pro_name. "</td>
-				<td>" .$row->pro_price. "</td>
+				<td>" .number_format($row->pro_price). " VND</td>
 				<td>" .$row->pro_desc. "</td>
 				<td>" .$src_img. "</td>
 				<td>" .$row->date_created. "</td>
 				<td><a href=".base_url()."product/edit/".$row->pro_id.">Chỉnh sửa</a> | <a href=".base_url()."product/details/" .$row->pro_id. ">Xem</a> | <a href=".base_url()."product/delete/".$row->pro_id."  onclick='return xacnhan();'>Xóa</a></td></tr>";
 			}
 			echo '</table>';
+			//echo($post->['pro_desc']);
+
 		?>
 		<div class="paging"><?php echo '<h4>' .$paginator. '</h4>'; ?></div>
 		<!-- ////////////////////////////////////////////// -->

@@ -8107,3 +8107,14 @@ legend.scheduler-border {
    border-bottom:none;
    text-align: left !important;
 }
+
+
+.box-out {
+    position: relative;
+}
+
+ul#DropdownProName {
+    position: absolute;
+    top: 55px;
+    left: 0px;
+}

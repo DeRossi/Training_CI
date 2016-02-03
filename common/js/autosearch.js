@@ -1,31 +1,26 @@
 $(document).ready(function () {
 	$("#pro_name").keyup(function () {
-		$.ajax({
-			type: "POST",
-			url: "http://training_ci.happy.cba/product/getproName",
-			//url: "http://training_ci.happy.cba/product/getproName", ==> dddd
-			data: {
-				keyword: $("#pro_name").val()
-			},
-			dataType: "json",
-			success: function (data) {
-				if (data.length > 0) {
-					$('#DropdownProName').empty();
-					$('#pro_name').attr("data-toggle", "dropdown");
-					$('#DropdownProName').dropdown('toggle');
-				}
-				else if (data.length == 0) {
-					$('#pro_name').attr("data-toggle", "");
-				}
-				$.each(data, function (key,value) {
-					if (data.length >= 0)
-						$('#DropdownProName').append('<h3><li role="presentation">' + value['pro_name'] + '</li></h3>');
+		var value_input_ = $(this).val();
+		$.post('/product/ajax_getproName', {value_input : value_input_}, function(data, textStatus, xhr) {
+			rs = JSON.parse(data);
+			console.log(rs.length);
+
+			console.log(rs);
+
+			console.log(data);
+
+			console.log(value_input_);
+			$(".dropdown-menu.txtproname").html("");
+			if(rs.length > 0 || value_input!=""){
+				$.each(rs, function(index, val) {
+					$(".dropdown-menu.txtproname").append('<li>'+val+'</li>');
 				});
+				$(".dropdown-menu.txtproname").show();
+			}else{
+				$(".dropdown-menu.txtproname").html("");
+				$(".dropdown-menu.txtproname").hide();
 			}
 		});
-	});
-	$("ul.txtproname li").hover(function() {
-
 	});
 
 	$('ul.txtproname').on('click', 'li', function () {

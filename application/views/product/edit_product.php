@@ -18,6 +18,7 @@
 	</div>
 </div>
 
+<?php echo $this->session->flashdata('msg'); ?>
 <div class="container wrapper wrapper-content animated fadeInDownBig" style="width: 99%">
 	<?php
 		echo "<div class=''>";
@@ -73,8 +74,5 @@
 	</table>
 
 </div>
-
-
-<?php //echo $errors_msg; ?>
 
 <?php } ?>

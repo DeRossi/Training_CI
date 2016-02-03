@@ -40,7 +40,6 @@
 						echo form_open_multipart(base_url()."product/add");
 						echo form_label("Hình ảnh : ").form_upload($upload)."<br />";
 
-
 						?>
 						<img src="http://developer-agent.com/wp-content/uploads/2015/05/images_no_image_jpg3.jpg" class="img-responsive" width="240px" height="180px">
 					</fieldset>
@@ -52,9 +51,10 @@
 						echo form_label('Giá sản phẩm : ').form_input(array('name' => 'pro_price'   , 'class' => 'input form-control pro_price')); ?><br><?php
 						// Hidden
 						echo form_input(array('type' => 'hidden', 'name' => 'pro_price_'   , 'class' => 'input form-control')); ?> <?php
+
 						echo form_label('Thông tin chi tiết : ').form_textarea(array('name' => 'pro_desc', 'id' => 'input', 'class' => 'form-control', 'rows' => 3)); ?><br><?php
 
-						echo form_label(" ").form_submit("ok", "Upload");
+						echo form_label(" ").form_submit("ok", "Thêm mới");
 						echo form_close();
 					?>
 				</td>
