@@ -25,7 +25,7 @@
 		<div class="col-md-4 col-md-offset-1 box-out" style="margin-top: 20px; margin: auto">
 			<label class="control-lable">Tìm kiếm theo tên sản phẩm</label>
 			<input type="text" id="pro_name" autocomplete="off" name="pro_name" class="form-control" placeholder="Tìm kiếm sản phẩm theo tên" <?php if ($search["keyword_proname"]) {echo "value='". $search["keyword_proname"]."'";} ?> >
-			<ul class="dropdown-menu txtproname" style="margin-left:15px;margin-right:0px;" role="menu" aria-labelledby="dropdownMenu" id="DropdownProName">
+			<ul class="dropdown-menu txtproname" style="margin-left:15px;margin-right:0px; width: 344px" role="menu" aria-labelledby="dropdownMenu" id="DropdownProName">
 			</ul>
 			<br>
 			<label class="control-lable">Tìm kiếm theo giá sản phẩm (VND)</label>
