@@ -65,6 +65,8 @@ class CI_Controller {
 	 */
 	public function __construct()
 	{
+		require 'kint-master/Kint.class.php';
+
 		self::$instance =& $this;
 
 		// Assign all the class objects that were instantiated by the
@@ -91,6 +93,13 @@ class CI_Controller {
 	public static function &get_instance()
 	{
 		return self::$instance;
+	}
+
+	//My customize
+	public function is_logged_in()
+	{
+		$user = $this->session->userdata('loginuser');
+		return isset($user);
 	}
 
 }

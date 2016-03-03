@@ -22,9 +22,9 @@ $(document).ready(function () {
 				$(".dropdown-menu.txtproname").hide();
 			}
 
-			$(".dropdown-menu li").click(function(event) {
 				$(".dropdown-menu.txtproname").hide();
 			});
+			$(".dropdown-menu li").click(function(event) {
 		});
 	});
 
@@ -32,19 +32,22 @@ $(document).ready(function () {
 		var value_input_ = $(this).val();
 		$.ajax({
 			url: '/product/ajax_getproName',
+			data: { value_input : value_input_ },
 			type: 'POST',
 			dataType: 'json',
-			data: value_input_,
 		})
 		rs = JSON.parse(data);
-		.done(function() {
+		done(function() {
 			console.log(rs);
 			console.log("success");
 		})
-		.fail(function() {
+		fail(function() {
 			console.log("error");
 		})
-		.always(function() {
+		error(function() {
+			console.log("co loi");
+		});
+		always(function() {
 			console.log("complete");
 		});
 

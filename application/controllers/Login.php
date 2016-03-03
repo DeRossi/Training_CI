@@ -6,9 +6,9 @@ class Login extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 
-		/*if($this->session->userdata('loginuser')){
+		if($this->is_logged_in()){
 			redirect('product');
-		}*/
+		}
 		$this->load->library('session');
 		$this->load->library('form_validation');
 

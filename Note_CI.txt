@@ -1,0 +1,230 @@
+Hết page 5 (50 per page)
+-- CASE Config
+	1/ removing index.php from url :
+		Open config.php : $config['index_page'] = "index.php"
+					  ~~> $config['index_page'] = ""
+		In some cases the default setting for uri_protocol does not work properly :
+						  $config['uri_protocol'] = "AUTO"
+					  ~~> $config['uri_protocol'] = "REQUEST_URI"
+
+	2/ Enable/Disable error messages on application environment : http://stackoverflow.com/questions/9587413/codeigniter-displays-a-blank-page-instead-of-error-messages
+
+	3/
+
+-- CASE Model, Db
+	1/ Get number of returned rows :
+		$query    = $this->db->get();
+		$rowcount = $query->num_rows();
+
+	2/ Not equal to :
+		$this->db->where('name !=', $name);
+		$this->db->where('id <', $id);
+		Produces: WHERE name != 'Joe' AND id < 45
+
+	3/ Getting data posted in between two dates :
+		$this->db->where('order_date >=', $first_date);
+		$this->db->where('order_date <=', $second_date);
+		return $this->db->get('orders');
+
+	4/ Difference between $query>num_rows() and $this->db->count_all_results() :
+		// num rows example
+		$this->db->select('*');
+		$this->db->where('whatever');
+		$query = $this->db->get('table');
+		$num   = $query->num_rows();
+		// here you can do something with $query
+
+		// count all example
+		$this->db->where('whatever');
+		$num = $this->db->count_all_results('table');
+		// here you only have $num, no $query
+
+	5/ Distinct Select :
+		SELECT count(distinct accessid) FROM (`accesslog`) WHERE record = '123'
+		~~> $record = '123';
+			$this->db->distinct();
+			$this->db->select('accessid');
+			$this->db->where('record', $record);
+			$query = $this->db->get('accesslog');
+			$query->num_rows();
+
+	6/ Union query with Active Record :
+		$this->db->query('SELECT column_name(s) FROM table_name1 UNION SELECT column_name(s) FROM table_name2');
+
+	7/ Insert Ignore :
+		mysql> INSERT IGNORE INTO nhanvienIT (ho, ten)
+		-> VALUES( 'Jay', 'Thomas');
+		Query OK, 1 row affected (0.00 sec)
+		mysql> INSERT IGNORE INTO nhanvienIT (ho, ten)
+		-> VALUES( 'Jay', 'Thomas');
+		Query OK, 0 rows affected (0.00 sec)
+
+	8/ Prevent SQL Injection with Active Record :
+		Active Record automatically escape queries for you, to prevent injection.
+		If you don't want to use Active Records, you can use query bindings to prevent against injection.
+			$sql = 'SELECT * FROM tablename WHERE var = ?';
+			$this->db->query($sql, array($val1));
+		Or for inserting you can use the insert_string() method.
+			$sql = $this->db->insert_string('tablename', array('var1'=>$val1, 'var2'=>$val2));
+			$this->db->query($sql);
+
+	9/ Order by :
+		$this->db->from($this->table_name);
+		$this->db->order_by("name", "asc");
+		$query = $this->db->get();
+		return $query->result();
+
+	10/ Random record :
+	function get_random_page() {
+		$this->db->order_by('id', 'RANDOM');
+		$this->db->limit(1);
+		$query = $this->db->get('pages');
+		return $query->result_array();
+	}
+
+	11/ Join :
+	Inner Join :
+		$this->db->select('book_id, book_name, author_name, category_name');
+		$this->db->from('books');
+		$this->db->join('category', 'category.category_id = books.category_id');
+		$query = $this->db->get();
+	// Produces SQL:
+	// select book_id, book_name, author_name, category_name from books join category on category.category_id = books.category_id
+
+	Inner Join with Condition :
+		$this->db->select('book_id, book_name, author_name, category_name');
+		$this->db->from('books');
+		$this->db->join('category', 'category.category_id = books.category_id');
+		$this->db->where('category_name', 'Self Development');
+		$query = $this->db->get();
+	// Produces SQL:
+	// select book_id, book_name, author_name, category_name from books join category on category.category_id = books.category_id where category_name = "Self Development"
+
+	Join Multiple Tables
+		$this->db->select('book_id, book_name, category_name, no_copies');
+		$this->db->from('books');
+		$this->db->join('category', 'category.category_id = books.category_id');
+		$this->db->join('orders', 'orders.book_id = books.book_id');
+		$query = $this->db->get();
+	// Produces SQL:
+	// select book_id, book_name, category_name, no_copies from books join category on category.category_id = books.category_id join orders on orders.book_id = books.book_id
+
+	Left Join
+		$this->db->select('book_id, book_name, author_name, no_copies, order_date');
+		$this->db->from('books');
+		$this->db->join('orders', 'orders.book_id = books.book_id', 'left');
+		$query = $this->db->get();
+	// Produces SQL:
+	// select book_id, book_name, author_name, no_copies, order_date from books left join category on orders.book_id = books.book_id
+
+	Right Join
+		$this->db->select('book_id, book_name, author_name, category_name');
+		$this->db->from('books');
+		$this->db->join('category', 'category.category_id = books.category_id', 'right');
+		$query = $this->db->get();
+	// Produces SQL:
+	// select book_id, book_name, author_name, category_name from books right join category on category.category_id = books.category_id
+
+	Outer Join
+		$this->db->select('book_id, book_name, author_name, category_name');
+		$this->db->from('books');
+		$this->db->join('category', 'category.category_id = books.category_id', 'outer');
+		$query = $this->db->get();
+	// Produces SQL:
+	// select book_id, book_name, author_name, category_name from books outer join category on category.category_id = books.category_id
+
+
+-- CASE Upload
+	1/ Restrict file type upload : http://stackoverflow.com/questions/12303660/restricting-file-types-in-jquery-file-upload-demo
+
+	2/ Upload multiple files : http://stackoverflow.com/questions/8377218/upload-multiple-files-in-codeigniter
+
+	3/ Upload CSV :
+
+-- CASE Form Validation
+	1/ How to unset form values after success : http://stackoverflow.com/questions/2802046/codeigniter-form-validation-how-to-unset-form-values-after-success
+
+	2/ File upload required validation :
+		$this->form_validation->set_rules('userfile', 'Document', 'required');
+	~~> if (empty($_FILES['userfile']['name'])){
+			$this->form_validation->set_rules('userfile', 'Document', 'required');
+		}
+
+	3/
+
+-- CASE Date/Time
+	1/ Set date.timezone :
+		Edit the main index.php for your CodeIgniter application :
+		if( ! ini_get('date.timezone') ) {
+			date_default_timezone_set('GMT');
+		}
+
+	2/
+
+-- CASE Pagination
+	1/ Pagination url with get parameter : http://stackoverflow.com/questions/5384644/codeigniter-pagination-url-with-get-parameters
+
+	2/
+
+
+-- CASE Session/Cookie
+	1/ Check user session in every controller :
+		Create a base controller called MY_Controller.php, then make your controller inherit from this base controller :
+		public function is_logged_in()
+		{
+			$user = $this->session->userdata('user_data');
+			return isset($user);
+		}
+
+		~~> if($this->is_logged_in()){ ... }
+
+	2/ Create 'remember me checkbox', save session forever : http://stackoverflow.com/questions/3984313/how-to-create-remember-me-checkbox-using-codeigniter-session-library
+
+	3/ Save and extract session data :
+		$this->load->library('session');
+		$this->session->set_userdata(array(
+			'user_id'       => $user->uid,
+			'username'      => $user->username
+		));
+		and get it : 	$a = $this->session->userdata('user_id');
+						$b = $this->session->userdata('username');
+
+	4/
+
+
+-- CASE OOP
+	1/ Call function within same class : http://stackoverflow.com/questions/4048924/codeigniter-call-function-within-same-class
+
+	2/ Access a model from inside another model : http://stackoverflow.com/questions/46338/can-you-access-a-model-from-inside-another-model-in-codeigniter
+
+	3/ Load a controller from another controller :
+		Load like this inside your controller :
+		$this->load->library('../controllers/whathever');
+		And call the following method :
+		$this->whathever->functioname();
+
+	4/
+
+-- CASE send mail
+	1/ Send html mail : http://stackoverflow.com/questions/9095528/send-html-mail-using-codeigniter
+
+	2/
+
+	3/
+
+-- CASE OTHER
+	1/ How can I redirect a 404 Error in a custom 404 page ? : http://stackoverflow.com/questions/2310061/how-can-i-redirect-a-404-error-in-a-custom-404-page-using-codeigniter
+
+	2/ Difference between site_url() and base_url()? :
+		echo base_url(); // http://example.com/website
+		echo site_url(); // http://example.com/website/index.php
+		If you want a URL access to a resource (such as css, js, image), use base_url(), otherwise, site_url() is better.
+
+	3/ Call a library from inside a helper function :
+		function sendEmail() {
+			$CI =& get_instance();
+			$CI->load->library('email'); // load library
+		}
+
+	4/
+

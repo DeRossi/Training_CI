@@ -6,7 +6,8 @@ class Product extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		define('EXT', '.php');
-		if(empty($this->session->userdata('loginuser'))){
+
+		if(!$this->is_logged_in()){
 			redirect('login');
 		}
 		$this->_data['base_url'] = base_url();
@@ -65,6 +66,8 @@ class Product extends CI_Controller {
 			//'post'			=> $querypost
 		);
 		$this->load->view('product/main', $nData);
+		d($config);
+		d($querypost);
 	}
 
 	public function addCart(){
@@ -291,6 +294,7 @@ class Product extends CI_Controller {
 			echo json_encode([]);
 		}
 		die;
+
 		// $search = array(
 		// 	"keyword_proname"	=> $this->input->post('pro_name'),
 		// 	"keyword_pricefrom"	=> str_replace(',', '', $this->input->post('pro_price_from')),
